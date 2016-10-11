@@ -19,6 +19,7 @@
 		424FE0251DAD513C00CFE4F0 /* FLMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 424FE0241DAD513C00CFE4F0 /* FLMovie.m */; };
 		424FE0281DAD523900CFE4F0 /* FLMoviesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 424FE0271DAD523900CFE4F0 /* FLMoviesTableViewController.m */; };
 		424FE02B1DAD525600CFE4F0 /* FLTopRatedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 424FE02A1DAD525600CFE4F0 /* FLTopRatedTableViewController.m */; };
+		424FE02F1DAD5EBD00CFE4F0 /* FLBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 424FE02E1DAD5EBD00CFE4F0 /* FLBase.m */; };
 		992D270DF8A79E10CA7D07B3 /* Pods_Flix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60797D23050E7FEAC33AF723 /* Pods_Flix.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,8 @@
 		424FE0291DAD525600CFE4F0 /* FLTopRatedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLTopRatedTableViewController.h; sourceTree = "<group>"; };
 		424FE02A1DAD525600CFE4F0 /* FLTopRatedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLTopRatedTableViewController.m; sourceTree = "<group>"; };
 		424FE02C1DAD539D00CFE4F0 /* FLMovie-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FLMovie-Internal.h"; sourceTree = "<group>"; };
+		424FE02D1DAD5EBD00CFE4F0 /* FLBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLBase.h; sourceTree = "<group>"; };
+		424FE02E1DAD5EBD00CFE4F0 /* FLBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLBase.m; sourceTree = "<group>"; };
 		5E96BA10E7315F55541C76E3 /* Pods-Flix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flix/Pods-Flix.debug.xcconfig"; sourceTree = "<group>"; };
 		60797D23050E7FEAC33AF723 /* Pods_Flix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -130,6 +133,8 @@
 				424FE0231DAD513C00CFE4F0 /* FLMovie.h */,
 				424FE02C1DAD539D00CFE4F0 /* FLMovie-Internal.h */,
 				424FE0241DAD513C00CFE4F0 /* FLMovie.m */,
+				424FE02D1DAD5EBD00CFE4F0 /* FLBase.h */,
+				424FE02E1DAD5EBD00CFE4F0 /* FLBase.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 				42407FF01DAB5BEF00C6FB82 /* main.m in Sources */,
 				424FE0281DAD523900CFE4F0 /* FLMoviesTableViewController.m in Sources */,
 				424FE02B1DAD525600CFE4F0 /* FLTopRatedTableViewController.m in Sources */,
+				424FE02F1DAD5EBD00CFE4F0 /* FLBase.m in Sources */,
 				4240801A1DAB618000C6FB82 /* FLNetworkingHelper.m in Sources */,
 				4240801D1DAB61DA00C6FB82 /* FLHTTPClient.m in Sources */,
 				424FE0251DAD513C00CFE4F0 /* FLMovie.m in Sources */,

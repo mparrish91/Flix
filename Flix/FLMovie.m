@@ -8,6 +8,7 @@
 
 #import "FLMovie.h"
 #import "FLMovie-Internal.h"
+#import "FLBase.m"
 
 @implementation FLMovie
 
@@ -19,7 +20,7 @@
 
     
     if ((value = dict[@"poster_path"]) && [value isKindOfClass:[NSString class]])
-        valuesForKeys[@"posterImage"] = value;
+        valuesForKeys[@"posterImage"] = FLMovieImageURLFromString(value);
     
     if ((value = dict[@"overview"]) && [value isKindOfClass:[NSString class]])
         valuesForKeys[@"description"] = value;
@@ -33,8 +34,10 @@
     if ((value = dict[@"popularity"]) && [value respondsToSelector:@selector(doubleValue)])
         valuesForKeys[@"rating"] = @([value doubleValue]);
     
+    FLPerformSyncOnMainThread(^{
+        [self setValuesForKeysWithDictionary:valuesForKeys];
+    });
 
-    
     return self;
 }
 
@@ -43,9 +46,7 @@
 
 NSString* FLMovieImageURLFromString(NSString *str)
 {
-    
     NSString *returnString = @"https://image.tmdb.org/t/p/w500/";
-    
     [returnString stringByAppendingString:str];
 
     return returnString;

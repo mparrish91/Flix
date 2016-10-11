@@ -10,10 +10,6 @@
 
 @interface FLHTTPClient ()
 
-//@property(strong,readwrite,nonatomic) NSURL *url;
-//@property(copy,readonly,nonatomic) NSURL *URL;
-
-
 @end
 
 
@@ -29,26 +25,38 @@
 }
 
 
-- (void)performRequestWithHandler:(FLDataRequestHandler)handler
+- (void)performJSONRequestWithHandler:(FLDataRequestHandler)handler
 {
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:self.URL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
+        //request
         if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
             return;
         }
         
-        if (handler)
-            handler(data, (NSHTTPURLResponse *)response, error);
-
+        //json
+        id JSONObject = nil;
+        if (data.length) {
+            NSError *serializationError = nil;
+            JSONObject = [NSJSONSerialization JSONObjectWithData:data options:0 error:&serializationError];
         
+            if (!JSONObject) {
+                NSLog(@"Error parsing JSON: %@", serializationError);
+            }
+        
+        
+        if (handler)
+            handler(JSONObject, (NSHTTPURLResponse *)response, error);
+            
+            
+        }
     }];
     
-
-dispatch_async(dispatch_get_main_queue(), ^{
-    [dataTask resume];
-});
-
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [dataTask resume];
+    });
+    
 }
 
 

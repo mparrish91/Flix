@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^FLDataRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
+typedef void(^FLDataRequestHandler)(id responseObject, NSHTTPURLResponse *urlResponse, NSError *error);
 
 
 @interface FLHTTPClient : NSObject
@@ -16,7 +16,7 @@ typedef void(^FLDataRequestHandler)(NSData *responseData, NSHTTPURLResponse *url
 @property(copy,readonly,nonatomic) NSURL *URL;
 
 - (instancetype)initWithURL:(NSURL *)URL;
-- (void)performRequestWithHandler:(FLDataRequestHandler)handler;
+- (void)performJSONRequestWithHandler:(FLDataRequestHandler)handler;
 
 
 

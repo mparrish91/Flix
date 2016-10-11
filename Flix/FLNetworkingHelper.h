@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^FLDataRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
+typedef void(^FLDataRequestHandler)(id responseObject, NSHTTPURLResponse *urlResponse, NSError *error);
 
 
 @interface FLNetworkingHelper : NSObject
 
 - (void)fetchTopRatedWithHandler:(FLDataRequestHandler)handler;
 - (void)fetchNowPlayingWithHandler:(FLDataRequestHandler)handler;
+
+- (void)fetchNwPlayingWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler;
 
 - (void)fetchMovieDetailsWithHandler:(FLDataRequestHandler)handler;
 
