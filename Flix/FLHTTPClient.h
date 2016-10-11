@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^FLDataRequestHandler)(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error);
+
+
 @interface FLHTTPClient : NSObject
+
+
+
+- (void)performRequestWithHandler:(FLDataRequestHandler)handler;
+
 
 @end

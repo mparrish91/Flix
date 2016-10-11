@@ -10,4 +10,31 @@
 
 @implementation FLNetworkingHelper
 
++ (instancetype)sharedInstance
+{
+    static FLNetworkingHelper *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[FLNetworkingHelper alloc] init];
+    });
+    return sharedInstance;
+}
+
+- (void)fetchTopRatedWithHandler:(FLDataRequestHandler)handler
+{
+    
+}
+
+
+- (void)fetchNowPlayingWithHandler:(FLDataRequestHandler)handler
+{
+    
+}
+
+
+- (void)fetchMovieDetailsWithHandler:(FLDataRequestHandler)handler
+{
+    
+}
+
 @end
