@@ -11,13 +11,14 @@
 		42407FF31DAB5BEF00C6FB82 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42407FF21DAB5BEF00C6FB82 /* AppDelegate.m */; };
 		42407FFB1DAB5BEF00C6FB82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42407FFA1DAB5BEF00C6FB82 /* Assets.xcassets */; };
 		42407FFE1DAB5BEF00C6FB82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42407FFC1DAB5BEF00C6FB82 /* LaunchScreen.storyboard */; };
-		4240800A1DAB5CC000C6FB82 /* FLMoviesSearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 424080091DAB5CC000C6FB82 /* FLMoviesSearchDisplayController.m */; };
-		4240800D1DAB5D4800C6FB82 /* FLTopRatedSearchDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4240800C1DAB5D4800C6FB82 /* FLTopRatedSearchDisplayController.m */; };
 		424080101DAB5D8B00C6FB82 /* FLMovieDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4240800F1DAB5D8B00C6FB82 /* FLMovieDetailViewController.m */; };
 		424080131DAB5EB600C6FB82 /* FLTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 424080121DAB5EB600C6FB82 /* FLTabBarController.m */; };
 		424080171DAB5EEB00C6FB82 /* FLErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 424080161DAB5EEB00C6FB82 /* FLErrorView.m */; };
 		4240801A1DAB618000C6FB82 /* FLNetworkingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 424080191DAB618000C6FB82 /* FLNetworkingHelper.m */; };
 		4240801D1DAB61DA00C6FB82 /* FLHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4240801C1DAB61DA00C6FB82 /* FLHTTPClient.m */; };
+		424FE0251DAD513C00CFE4F0 /* FLMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 424FE0241DAD513C00CFE4F0 /* FLMovie.m */; };
+		424FE0281DAD523900CFE4F0 /* FLMoviesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 424FE0271DAD523900CFE4F0 /* FLMoviesTableViewController.m */; };
+		424FE02B1DAD525600CFE4F0 /* FLTopRatedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 424FE02A1DAD525600CFE4F0 /* FLTopRatedTableViewController.m */; };
 		992D270DF8A79E10CA7D07B3 /* Pods_Flix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60797D23050E7FEAC33AF723 /* Pods_Flix.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,10 +31,6 @@
 		42407FFA1DAB5BEF00C6FB82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42407FFD1DAB5BEF00C6FB82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42407FFF1DAB5BEF00C6FB82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		424080081DAB5CC000C6FB82 /* FLMoviesSearchDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMoviesSearchDisplayController.h; sourceTree = "<group>"; };
-		424080091DAB5CC000C6FB82 /* FLMoviesSearchDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMoviesSearchDisplayController.m; sourceTree = "<group>"; };
-		4240800B1DAB5D4800C6FB82 /* FLTopRatedSearchDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLTopRatedSearchDisplayController.h; sourceTree = "<group>"; };
-		4240800C1DAB5D4800C6FB82 /* FLTopRatedSearchDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLTopRatedSearchDisplayController.m; sourceTree = "<group>"; };
 		4240800E1DAB5D8B00C6FB82 /* FLMovieDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMovieDetailViewController.h; sourceTree = "<group>"; };
 		4240800F1DAB5D8B00C6FB82 /* FLMovieDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMovieDetailViewController.m; sourceTree = "<group>"; };
 		424080111DAB5EB600C6FB82 /* FLTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLTabBarController.h; sourceTree = "<group>"; };
@@ -44,6 +41,13 @@
 		424080191DAB618000C6FB82 /* FLNetworkingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLNetworkingHelper.m; sourceTree = "<group>"; };
 		4240801B1DAB61DA00C6FB82 /* FLHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLHTTPClient.h; sourceTree = "<group>"; };
 		4240801C1DAB61DA00C6FB82 /* FLHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLHTTPClient.m; sourceTree = "<group>"; };
+		424FE0231DAD513C00CFE4F0 /* FLMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMovie.h; sourceTree = "<group>"; };
+		424FE0241DAD513C00CFE4F0 /* FLMovie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMovie.m; sourceTree = "<group>"; };
+		424FE0261DAD523900CFE4F0 /* FLMoviesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMoviesTableViewController.h; sourceTree = "<group>"; };
+		424FE0271DAD523900CFE4F0 /* FLMoviesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMoviesTableViewController.m; sourceTree = "<group>"; };
+		424FE0291DAD525600CFE4F0 /* FLTopRatedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLTopRatedTableViewController.h; sourceTree = "<group>"; };
+		424FE02A1DAD525600CFE4F0 /* FLTopRatedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLTopRatedTableViewController.m; sourceTree = "<group>"; };
+		424FE02C1DAD539D00CFE4F0 /* FLMovie-Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FLMovie-Internal.h"; sourceTree = "<group>"; };
 		5E96BA10E7315F55541C76E3 /* Pods-Flix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flix/Pods-Flix.debug.xcconfig"; sourceTree = "<group>"; };
 		60797D23050E7FEAC33AF723 /* Pods_Flix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -106,10 +110,10 @@
 		424080051DAB5C2D00C6FB82 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				424080081DAB5CC000C6FB82 /* FLMoviesSearchDisplayController.h */,
-				424080091DAB5CC000C6FB82 /* FLMoviesSearchDisplayController.m */,
-				4240800B1DAB5D4800C6FB82 /* FLTopRatedSearchDisplayController.h */,
-				4240800C1DAB5D4800C6FB82 /* FLTopRatedSearchDisplayController.m */,
+				424FE0261DAD523900CFE4F0 /* FLMoviesTableViewController.h */,
+				424FE0271DAD523900CFE4F0 /* FLMoviesTableViewController.m */,
+				424FE0291DAD525600CFE4F0 /* FLTopRatedTableViewController.h */,
+				424FE02A1DAD525600CFE4F0 /* FLTopRatedTableViewController.m */,
 				4240800E1DAB5D8B00C6FB82 /* FLMovieDetailViewController.h */,
 				4240800F1DAB5D8B00C6FB82 /* FLMovieDetailViewController.m */,
 				424080111DAB5EB600C6FB82 /* FLTabBarController.h */,
@@ -123,6 +127,9 @@
 			children = (
 				4240801B1DAB61DA00C6FB82 /* FLHTTPClient.h */,
 				4240801C1DAB61DA00C6FB82 /* FLHTTPClient.m */,
+				424FE0231DAD513C00CFE4F0 /* FLMovie.h */,
+				424FE02C1DAD539D00CFE4F0 /* FLMovie-Internal.h */,
+				424FE0241DAD513C00CFE4F0 /* FLMovie.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -286,10 +293,11 @@
 				42407FF31DAB5BEF00C6FB82 /* AppDelegate.m in Sources */,
 				424080101DAB5D8B00C6FB82 /* FLMovieDetailViewController.m in Sources */,
 				42407FF01DAB5BEF00C6FB82 /* main.m in Sources */,
+				424FE0281DAD523900CFE4F0 /* FLMoviesTableViewController.m in Sources */,
+				424FE02B1DAD525600CFE4F0 /* FLTopRatedTableViewController.m in Sources */,
 				4240801A1DAB618000C6FB82 /* FLNetworkingHelper.m in Sources */,
-				4240800A1DAB5CC000C6FB82 /* FLMoviesSearchDisplayController.m in Sources */,
 				4240801D1DAB61DA00C6FB82 /* FLHTTPClient.m in Sources */,
-				4240800D1DAB5D4800C6FB82 /* FLTopRatedSearchDisplayController.m in Sources */,
+				424FE0251DAD513C00CFE4F0 /* FLMovie.m in Sources */,
 				424080131DAB5EB600C6FB82 /* FLTabBarController.m in Sources */,
 				424080171DAB5EEB00C6FB82 /* FLErrorView.m in Sources */,
 			);

@@ -10,17 +10,29 @@
 
 @interface FLHTTPClient ()
 
-@property(strong,readwrite,nonatomic) NSURL *url;
+//@property(strong,readwrite,nonatomic) NSURL *url;
+//@property(copy,readonly,nonatomic) NSURL *URL;
+
 
 @end
 
 
 @implementation FLHTTPClient
 
+- (instancetype)initWithURL:(NSURL *)URL {
+    if (!(self = [super init]))
+        return nil;
+    
+    _URL = [URL copy];
+
+    return self;
+}
+
+
 - (void)performRequestWithHandler:(FLDataRequestHandler)handler
 {
     NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:self.url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:self.URL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         if ([error.domain isEqualToString:NSURLErrorDomain] && error.code == NSURLErrorCancelled) {
             return;

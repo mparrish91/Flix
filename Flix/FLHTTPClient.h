@@ -13,9 +13,12 @@ typedef void(^FLDataRequestHandler)(NSData *responseData, NSHTTPURLResponse *url
 
 @interface FLHTTPClient : NSObject
 
+@property(copy,readonly,nonatomic) NSURL *URL;
 
-
+- (instancetype)initWithURL:(NSURL *)URL;
 - (void)performRequestWithHandler:(FLDataRequestHandler)handler;
+
+
 
 
 @end
