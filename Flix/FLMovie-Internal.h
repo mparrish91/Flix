@@ -13,11 +13,10 @@
 @interface FLMovie ()
 
 @property(strong,readwrite,nonatomic) NSString *title;
-@property(strong,readwrite,nonatomic) NSString *description;
+@property(strong,readwrite,nonatomic) NSString *overview;
 @property(strong,readwrite,nonatomic) NSString *posterPath;
-@property(strong,readwrite,nonatomic) UIImage *posterImage;
 @property(strong,readwrite,nonatomic) NSDate *releaseDate;
-@property(readwrite,nonatomic) NSInteger *runtime;
-@property(readwrite,nonatomic) NSInteger *rating;
+@property(readwrite,nonatomic) NSInteger runtime;
+@property(readwrite,nonatomic) NSInteger rating;
 
 @end

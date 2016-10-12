@@ -8,7 +8,7 @@
 
 #import "FLMovie.h"
 #import "FLMovie-Internal.h"
-#import "FLBase.m"
+//#import "FLBase.m"
 
 @implementation FLMovie
 
@@ -20,10 +20,10 @@
 
     
     if ((value = dict[@"poster_path"]) && [value isKindOfClass:[NSString class]])
-        valuesForKeys[@"posterImage"] = FLMovieImageURLFromString(value);
+        valuesForKeys[@"posterPath"] = FLMovieImageURLFromString(value);
     
     if ((value = dict[@"overview"]) && [value isKindOfClass:[NSString class]])
-        valuesForKeys[@"description"] = value;
+        valuesForKeys[@"overview"] = value;
     
     if ((value = dict[@"release_date"]) && [value isKindOfClass:[NSString class]])
         valuesForKeys[@"releaseDate"] = value;
@@ -32,11 +32,20 @@
         valuesForKeys[@"title"] = value;
     
     if ((value = dict[@"popularity"]) && [value respondsToSelector:@selector(doubleValue)])
-        valuesForKeys[@"rating"] = @([value doubleValue]);
+        valuesForKeys[@"rating"] = @([value integerValue]);
     
-    FLPerformSyncOnMainThread(^{
-        [self setValuesForKeysWithDictionary:valuesForKeys];
-    });
+    
+//    FLPerformSyncOnMainThread(^{
+//        [self setValuesForKeysWithDictionary:valuesForKeys];
+//    });
+    
+    [self setValuesForKeysWithDictionary:valuesForKeys];
+
+    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self setValuesForKeysWithDictionary:valuesForKeys];
+//    });
+    
 
     return self;
 }

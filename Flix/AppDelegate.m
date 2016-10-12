@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "FLNetworkingHelper.h"
+#import "FLMovie.h"
+
 
 @interface AppDelegate ()
 
@@ -20,18 +22,25 @@
     // Override point for customization after application launch.
     
     
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//        NSLog(@"%@", json);
-//    }];
-//    
-//    [dataTask resume];
-//    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSLog(@"%@", json);
+    }];
+    
+    [dataTask resume];
+    
     
     FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
-    [networkingHelper fetchNowPlayingWithHandler:<#^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error)handler#> ]
+    [networkingHelper fetchNwPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
+     {
+        
+        NSLog(@"%@",objects);
+        
+    }
+     ];
     
+
     
     return YES;
 }

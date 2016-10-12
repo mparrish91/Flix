@@ -55,7 +55,7 @@
          NSMutableArray *objects = nil;
          
          if (!error && [responseObject isKindOfClass:[NSDictionary class]]) {
-             NSArray *objectRepresentations = responseObject[@"movies"];
+             NSArray *objectRepresentations = responseObject[@"results"];
              objects = [NSMutableArray arrayWithCapacity:objectRepresentations.count];
              
              for (NSDictionary *dict in objectRepresentations) {
