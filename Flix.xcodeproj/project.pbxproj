@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4214EDAF1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4214EDAE1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m */; };
 		42407FF01DAB5BEF00C6FB82 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42407FEF1DAB5BEF00C6FB82 /* main.m */; };
 		42407FF31DAB5BEF00C6FB82 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42407FF21DAB5BEF00C6FB82 /* AppDelegate.m */; };
 		42407FFB1DAB5BEF00C6FB82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42407FFA1DAB5BEF00C6FB82 /* Assets.xcassets */; };
@@ -25,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		3C9EDE36672DB8258C73B462 /* Pods-Flix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flix/Pods-Flix.release.xcconfig"; sourceTree = "<group>"; };
+		4214EDAD1DAEBA4E006DE7D8 /* FLMovieTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMovieTableViewCell.h; sourceTree = "<group>"; };
+		4214EDAE1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMovieTableViewCell.m; sourceTree = "<group>"; };
 		42407FEB1DAB5BEF00C6FB82 /* Flix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42407FEF1DAB5BEF00C6FB82 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		42407FF11DAB5BEF00C6FB82 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 			children = (
 				424080151DAB5EEB00C6FB82 /* FLErrorView.h */,
 				424080161DAB5EEB00C6FB82 /* FLErrorView.m */,
+				4214EDAD1DAEBA4E006DE7D8 /* FLMovieTableViewCell.h */,
+				4214EDAE1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 			files = (
 				42407FF31DAB5BEF00C6FB82 /* AppDelegate.m in Sources */,
 				424080101DAB5D8B00C6FB82 /* FLMovieDetailViewController.m in Sources */,
+				4214EDAF1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m in Sources */,
 				42407FF01DAB5BEF00C6FB82 /* main.m in Sources */,
 				424FE0281DAD523900CFE4F0 /* FLMoviesTableViewController.m in Sources */,
 				424FE02B1DAD525600CFE4F0 /* FLTopRatedTableViewController.m in Sources */,

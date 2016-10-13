@@ -10,8 +10,16 @@
 #import "FLNetworkingHelper.h"
 #import "FLMovie.h"
 
+#import "FLMoviesTableViewController.h"
+#import "FLMovieDetailViewController.h"
+#import "FLTabBarController.h"
+
+
 
 @interface AppDelegate ()
+{
+FLTabBarController *tabBarController;
+}
 
 @end
 
@@ -21,25 +29,46 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    tabBarController = [[FLTabBarController alloc] init];
     
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSLog(@"%@", json);
-    }];
+    UINavigationController *nav;
+    FLMovieDetailViewController *movieDetailVC =[[FLMovieDetailViewController alloc]init];
+    nav = [[UINavigationController alloc]initWithRootViewController:movieDetailVC];
+    movieDetailVC.tabBarItem.title = @"In Theaters";
+    movieDetailVC.tabBarItem.image = [UIImage imageNamed:@"ticket"];
+    nav.navigationBar.hidden = YES;
     
-    [dataTask resume];
+    
+    FLMoviesTableViewController *moviesVC =[[FLMoviesTableViewController alloc]init];
+    UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:moviesVC];
+    nav2.navigationBar.hidden = YES;
+
+    moviesVC.tabBarItem.title = @"Top Rated";
+    moviesVC.tabBarItem.image = [UIImage imageNamed:@"star"];
+
     
     
-    FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
-    [networkingHelper fetchNwPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
-     {
-        
-        NSLog(@"%@",objects);
-        
-    }
-     ];
+    NSArray *viewControllerArray = [NSArray arrayWithObjects:nav, nav2, nil];
+    [tabBarController setViewControllers:viewControllerArray];
     
+
+    self.window=[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window setRootViewController:tabBarController];
+    [self.window makeKeyAndVisible];
+    
+    
+    
+//    [self.window addSubview:[tabBarController view]];
+    
+//    FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
+//    [networkingHelper fetchNwPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
+//     {
+//        
+//        NSLog(@"%@",objects);
+//        
+//    }
+//     ];
+//    
 
     
     return YES;
