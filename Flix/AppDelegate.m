@@ -27,50 +27,41 @@ FLTabBarController *tabBarController;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     
+    // show loading VC
+    
+    //in loading VC
+    ////fetch data
+    //intialize VC
+    //set VC
+    
+    //create tab bar
     tabBarController = [[FLTabBarController alloc] init];
     
-    UINavigationController *nav;
+    //Create first vc embedded in nav
     FLMovieDetailViewController *movieDetailVC =[[FLMovieDetailViewController alloc]init];
-    nav = [[UINavigationController alloc]initWithRootViewController:movieDetailVC];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:movieDetailVC];
     movieDetailVC.tabBarItem.title = @"In Theaters";
     movieDetailVC.tabBarItem.image = [UIImage imageNamed:@"ticket"];
     nav.navigationBar.hidden = YES;
     
-    
+    //Create second vc embedded in nav
     FLMoviesTableViewController *moviesVC =[[FLMoviesTableViewController alloc]init];
     UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:moviesVC];
     nav2.navigationBar.hidden = YES;
-
     moviesVC.tabBarItem.title = @"Top Rated";
     moviesVC.tabBarItem.image = [UIImage imageNamed:@"star"];
-
     
-    
+    //set tabBar
     NSArray *viewControllerArray = [NSArray arrayWithObjects:nav, nav2, nil];
     [tabBarController setViewControllers:viewControllerArray];
     
-
+    //set window
     self.window=[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [self.window setRootViewController:tabBarController];
     [self.window makeKeyAndVisible];
     
-    
-    
-//    [self.window addSubview:[tabBarController view]];
-    
-//    FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
-//    [networkingHelper fetchNwPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
-//     {
-//        
-//        NSLog(@"%@",objects);
-//        
-//    }
-//     ];
-//    
 
-    
     return YES;
 }
 

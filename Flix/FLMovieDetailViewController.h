@@ -10,4 +10,7 @@
 
 @interface FLMovieDetailViewController : UIViewController
 
+- (instancetype)initWithURL:(NSString *)url;
+
+
 @end

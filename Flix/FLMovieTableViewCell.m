@@ -7,18 +7,65 @@
 //
 
 #import "FLMovieTableViewCell.h"
+#import "UIImageView+AFNetworking.h"
+
+@interface FLMovieTableViewCell ()
+
+@end
+
 
 @implementation FLMovieTableViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+#pragma mark - Initialize
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+{
+
+    self.photoImageView = [[UIImageView alloc]init];
+    self.titleLabel = [[UILabel alloc]init];
+    self.overviewLabel = [[UILabel alloc]init];
+    
+    
+    
+    if (!(self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]))
+        return nil;
+    
+    [[self contentView]addSubview:self.photoImageView];
+    [[self contentView]addSubview:self.titleLabel];
+    [[self contentView]addSubview:self.overviewLabel];
+    
+    return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(void) layoutSubviews {
+    [super layoutSubviews];
+    
+    UILayoutGuide *margins = self.contentView.layoutMarginsGuide;
+    
+        self.photoImageView.translatesAutoresizingMaskIntoConstraints = false;
+        [self.photoImageView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
+        [self.photoImageView.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
+        [self.photoImageView.widthAnchor constraintEqualToConstant:50];
+        [self.photoImageView.heightAnchor constraintEqualToConstant:50];
+        self.photoImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    
+    self.titleLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.photoImageView.trailingAnchor constant:10].active = YES;
+    [self.titleLabel.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
+    [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.overviewLabel.topAnchor constant:1].active = YES;
+    self.overviewLabel.font = [UIFont fontWithName:@"Avenir-Book" size:9];
+    self.titleLabel.numberOfLines = 4;
+    
+    
+    self.overviewLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [self.overviewLabel.leadingAnchor constraintEqualToAnchor:self.photoImageView.trailingAnchor constant:10].active = YES;
+    [self.overviewLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:1].active = YES;
+    self.overviewLabel.font = [UIFont fontWithName:@"Avenir-Book" size:9];
+    self.overviewLabel.textColor = [UIColor grayColor];
+    
 }
+
 
 @end
+

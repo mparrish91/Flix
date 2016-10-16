@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FLMoviesTableViewController : UIViewController
+@interface FLMoviesTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
+
+
+
 
 @end
