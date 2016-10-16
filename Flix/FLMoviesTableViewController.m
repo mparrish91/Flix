@@ -149,9 +149,11 @@
     }
     FLMovie *movie = [self.movies objectAtIndex:indexPath.row];
     cell.titleLabel.text = [movie title];
-    cell.overviewLabel.text = [self convertDateToString:movie.releaseDate];
+//    cell.overviewLabel.text = [self convertDateToString:movie.releaseDate];
+    cell.overviewLabel.text = [movie overview];
     NSString *photoImageURL = [movie posterPath];
-    
+
+
     [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

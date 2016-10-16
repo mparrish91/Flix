@@ -41,14 +41,16 @@ FLTabBarController *tabBarController;
     //Create first vc embedded in nav
     FLMoviesTableViewController *moviesVC =[[FLMoviesTableViewController alloc]init];
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:moviesVC];
-    moviesVC.tabBarItem.title = @"Top Rated";
-    moviesVC.tabBarItem.image = [UIImage imageNamed:@"star"];
+    moviesVC.tabBarItem.title = @"In Theaters";
+    moviesVC.tabBarItem.image = [UIImage imageNamed:@"ticket"];
+    
 
     //Create second vc embedded in nav
     FLMovieDetailViewController *movieDetailVC =[[FLMovieDetailViewController alloc]init];
     UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:movieDetailVC];
-    movieDetailVC.tabBarItem.title = @"In Theaters";
-    movieDetailVC.tabBarItem.image = [UIImage imageNamed:@"ticket"];
+    movieDetailVC.tabBarItem.title = @"Top Rated";
+    movieDetailVC.tabBarItem.image = [UIImage imageNamed:@"star"];
+
     
 
     
