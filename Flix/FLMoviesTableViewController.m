@@ -20,10 +20,13 @@
 @interface FLMoviesTableViewController ()
 
 @property(strong,readwrite,nonatomic) NSArray *movies;
+@property (nonatomic,assign) BOOL isMoreDataLoading;
+
+
 @property(nonatomic,strong) UITableView *moviesTableView;
 @property(nonatomic,strong) UISearchBar *movieSearchBar;
+@property(nonatomic,strong) UIRefreshControl *refreshControl;
 
-@property (nonatomic,assign) BOOL isMoreDataLoading;
 
 @property(nonatomic,strong) FLInfiniteScrollActivityView *loadingMoreView;
 
@@ -32,14 +35,23 @@
 @implementation FLMoviesTableViewController
 
 
-#pragma mark - NSObject
+#pragma mark - Initialize
 
-- (id)initWithMovies:(NSArray *)movieArray
+- (instancetype)init
 {
     self.moviesTableView = [[UITableView alloc]init];
     self.movieSearchBar = [[UISearchBar alloc]init];
-
     
+    self = [super init];
+    if(self) {
+    }
+    return self;
+}
+
+
+
+- (instancetype)initWithMovies:(NSArray *)movieArray
+{
     self = [super init];
     if(self) {
         self.movies = movieArray;
@@ -55,6 +67,29 @@
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
     self.movieSearchBar.frame = CGRectMake(0, 0, 320, 50);
+    
+    //tableview
+    NSString *cellIdentifier = @"cell";
+    [self.moviesTableView registerClass:[FLMovieTableViewCell class] forCellReuseIdentifier:cellIdentifier];
+    self.moviesTableView.delegate = self;
+    self.moviesTableView.dataSource = self;
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.moviesTableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    
+    
+    CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
+    self.loadingMoreView = [[FLInfiniteScrollActivityView alloc]initWithFrame:frame];
+    self.loadingMoreView.hidden = true;
+    [self.moviesTableView addSubview:self.loadingMoreView];
+    
+    UIEdgeInsets insets = self.moviesTableView.contentInset;
+    insets.bottom += FLInfiniteScrollActivityView.defaultHeight;
+    self.moviesTableView.contentInset = insets;
+
+    
+    [self setConstraints];
+    [self fetchMovies];
 }
 
 
@@ -64,8 +99,26 @@
     [networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
      {
          self.movies = objects;
+     
+         
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self.moviesTableView reloadData];
+             [self.refreshControl endRefreshing];
+             self.isMoreDataLoading = false;
+             [self.loadingMoreView startAnimating];
+             
+             
+             if ([[NSThread currentThread] isMainThread]){
+                 NSLog(@"In main thread--completion handler");
+             }
+             else{
+                 NSLog(@"Not in main thread--completion handler");
+             }
+         });
+
          
      }
+     
      ];
 }
 
