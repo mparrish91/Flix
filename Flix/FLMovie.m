@@ -55,8 +55,8 @@
 
 NSString* FLMovieImageURLFromString(NSString *str)
 {
-    NSString *returnString = @"https://image.tmdb.org/t/p/w500/";
-    [returnString stringByAppendingString:str];
+    NSString *url = [[NSMutableString alloc]initWithString:@"https://image.tmdb.org/t/p/w300/"];
+    NSString *returnString = [url stringByAppendingString:str];
 
     return returnString;
 }
