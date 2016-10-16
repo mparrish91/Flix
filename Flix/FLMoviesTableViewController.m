@@ -13,6 +13,8 @@
 #import "UIImageView+AFNetworking.h"
 #import "FLNetworkingHelper.h"
 #import "FLInfiniteScrollActivityView.h"
+#import "MBProgressHUD.h"
+
 
 
 
@@ -90,6 +92,8 @@
     
     [self setConstraints];
     [self fetchMovies];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
 }
 
 
@@ -106,7 +110,8 @@
              [self.refreshControl endRefreshing];
              self.isMoreDataLoading = false;
              [self.loadingMoreView startAnimating];
-             
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+
              
              if ([[NSThread currentThread] isMainThread]){
                  NSLog(@"In main thread--completion handler");

@@ -31,8 +31,8 @@
         return nil;
     
     [[self contentView]addSubview:self.photoImageView];
-//    [[self contentView]addSubview:self.titleLabel];
-//    [[self contentView]addSubview:self.overviewLabel];
+    [[self contentView]addSubview:self.titleLabel];
+    [[self contentView]addSubview:self.overviewLabel];
     
     return self;
 }
@@ -49,23 +49,30 @@
     self.photoImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     
-//    self.titleLabel.translatesAutoresizingMaskIntoConstraints = false;
-//    [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.photoImageView.trailingAnchor constant:10].active = YES;
-//    [self.titleLabel.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
-////    [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.overviewLabel.topAnchor constant:5].active = YES;
-//    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14];
-//    
-//    
-//    self.overviewLabel.translatesAutoresizingMaskIntoConstraints = false;
-//    [self.overviewLabel.leadingAnchor constraintEqualToAnchor:self.photoImageView.trailingAnchor constant:10].active = YES;
-//    [self.overviewLabel.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor constant:10].active = YES;
-//
-//    [self.overviewLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:15].active = YES;
+    self.titleLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.photoImageView.trailingAnchor constant:-10].active = YES;
+    [self.titleLabel.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
+//    [self.titleLabel.bottomAnchor constraintEqualToAnchor:self.overviewLabel.topAnchor constant:5].active = YES;
+    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Book" size:13];
+    self.titleLabel.textAlignment = NSTextAlignmentLeft;
+    
+    
+    self.overviewLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [self.overviewLabel.leadingAnchor constraintEqualToAnchor:self.photoImageView.trailingAnchor constant:-10].active = YES;
+//    [self.overviewLabel.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor].active = YES;
+
+    [self.overviewLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:5].active = YES;
 //    [self.overviewLabel.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor].active = YES;
-//    self.overviewLabel.font = [UIFont fontWithName:@"Avenir-Book" size:9];
-//    self.overviewLabel.textColor = [UIColor grayColor];
-//    self.overviewLabel.numberOfLines = 0;
-//    self.overviewLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    [self.overviewLabel sizeToFit];
+
+//    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+//
+//
+//    
+    self.overviewLabel.font = [UIFont fontWithName:@"Avenir-Book" size:9];
+    self.overviewLabel.textColor = [UIColor grayColor];
+    self.overviewLabel.numberOfLines = 0;
+    self.overviewLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 
 
     
