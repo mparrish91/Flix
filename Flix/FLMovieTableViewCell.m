@@ -62,10 +62,11 @@
     [self.overviewLabel.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor constant:10].active = YES;
 
     [self.overviewLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:15].active = YES;
+    [self.overviewLabel.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor].active = YES;
     self.overviewLabel.font = [UIFont fontWithName:@"Avenir-Book" size:9];
     self.overviewLabel.textColor = [UIColor grayColor];
     self.overviewLabel.numberOfLines = 0;
-    self.overviewLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.overviewLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 
 
     
