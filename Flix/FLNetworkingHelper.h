@@ -14,9 +14,8 @@ typedef void(^FLDataRequestHandler)(id responseObject, NSHTTPURLResponse *urlRes
 @interface FLNetworkingHelper : NSObject
 
 - (void)fetchTopRatedWithHandler:(FLDataRequestHandler)handler;
-- (void)fetchNowPlayingWithHandler:(FLDataRequestHandler)handler;
 
-- (void)fetchNwPlayingWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler;
+- (void)fetchNowPlayingWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler;
 
 - (void)fetchMovieDetailsWithHandler:(FLDataRequestHandler)handler;
 

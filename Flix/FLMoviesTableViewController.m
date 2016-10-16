@@ -12,6 +12,7 @@
 #import "FLMovie.h"
 #import "UIImageView+AFNetworking.h"
 #import "FLNetworkingHelper.h"
+#import "FLInfiniteScrollActivityView.h"
 
 
 
@@ -24,6 +25,7 @@
 
 @property (nonatomic,assign) BOOL isMoreDataLoading;
 
+@property(nonatomic,strong) FLInfiniteScrollActivityView *loadingMoreView;
 
 @end
 
@@ -40,7 +42,7 @@
     
     self = [super init];
     if(self) {
-        _movies = movieArray;
+        self.movies = movieArray;
     }
     return self;
 }
@@ -50,31 +52,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
     self.movieSearchBar.frame = CGRectMake(0, 0, 320, 50);
 }
 
+
 - (void)fetchMovies
 {
-    
     FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
-    [networkingHelper fetchNwPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
+    [networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
      {
          self.movies = objects;
          
      }
      ];
-
-    
 }
 
 
 
-
 #pragma mark - TableView
-
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -122,7 +119,7 @@
 - (void)refreshTable {
     //TODO: refresh your data
     
-    [self fetchTumblrPosts];
+    [self fetchMovies];
 }
 
 
@@ -132,19 +129,19 @@
     
     if (!self.isMoreDataLoading)
     {
-        CGFloat scrollViewContentHeight = self.postsTableView.contentSize.height;
-        CGFloat scrollOffsetThreshold = scrollViewContentHeight - self.postsTableView.bounds.size.height;
+        CGFloat scrollViewContentHeight = self.moviesTableView.contentSize.height;
+        CGFloat scrollOffsetThreshold = scrollViewContentHeight - self.moviesTableView.bounds.size.height;
         
         // When the user has scrolled past the threshold, start requesting
-        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.postsTableView.dragging) {
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.moviesTableView.dragging) {
             self.isMoreDataLoading = true;
             
-            CGRect frame = CGRectMake(0, self.postsTableView.contentSize.height, self.postsTableView.bounds.size.width, TFInfiniteScrollActivityView.defaultHeight);
+            CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
             self.loadingMoreView.frame = frame;
             [self.loadingMoreView startAnimating];
             
             
-            [self fetchTumblrPosts];
+            [self fetchMovies];
             
         }
     }
@@ -159,7 +156,7 @@
     
     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = view;
-    [view addSubview:self.postsTableView];
+    [view addSubview:self.moviesTableView];
     //    [self initFooterView];
     
 }
@@ -170,7 +167,7 @@
     
     UIView *view= self.view;
     
-    self..translatesAutoresizingMaskIntoConstraints = false;
+    self.moviesTableView.translatesAutoresizingMaskIntoConstraints = false;
     [self.moviesTableView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
     [self.moviesTableView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
     [self.moviesTableView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
