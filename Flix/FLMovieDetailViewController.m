@@ -112,7 +112,7 @@
     [self.posterImageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
     [self.posterImageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
     [self.posterImageView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
-    [self.posterImageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
+    [self.posterImageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:15].active = YES;
     self.posterImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.detailView.translatesAutoresizingMaskIntoConstraints = false;

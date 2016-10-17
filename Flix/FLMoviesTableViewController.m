@@ -73,6 +73,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Flix";
+    
     self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
     self.movieSearchBar.frame = CGRectMake(0, 0, 320, 50);
     
