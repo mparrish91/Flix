@@ -118,7 +118,7 @@
     self.detailView.translatesAutoresizingMaskIntoConstraints = false;
     [self.detailView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
     [self.detailView.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor].active = YES;
-    [self.detailView.heightAnchor constraintEqualToConstant: 300].active = YES;
+    [self.detailView.heightAnchor constraintEqualToConstant: 220].active = YES;
     [self.detailView.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor].active = YES;
 
     self.detailView.contentMode = UIViewContentModeScaleAspectFit;

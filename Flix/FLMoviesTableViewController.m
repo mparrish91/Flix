@@ -14,6 +14,8 @@
 #import "FLNetworkingHelper.h"
 #import "FLInfiniteScrollActivityView.h"
 #import "MBProgressHUD.h"
+#import "FLErrorView.h"
+
 
 
 
@@ -28,6 +30,8 @@
 @property(nonatomic,strong) UITableView *moviesTableView;
 @property(nonatomic,strong) UISearchBar *movieSearchBar;
 @property(nonatomic,strong) UIRefreshControl *refreshControl;
+@property(nonatomic,strong) FLErrorView *errorView;
+
 
 
 @property(nonatomic,strong) FLInfiniteScrollActivityView *loadingMoreView;
@@ -43,6 +47,8 @@
 {
     self.moviesTableView = [[UITableView alloc]init];
     self.movieSearchBar = [[UISearchBar alloc]init];
+    self.errorView = [[FLErrorView alloc]init];
+
     
     self = [super init];
     if(self) {
@@ -219,6 +225,13 @@
     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = view;
     [view addSubview:self.moviesTableView];
+    [view addSubview:self.errorView];
+    
+    [view bringSubviewToFront:self.errorView];
+   self.errorView.frame = CGRectMake(0, 100, self.moviesTableView.bounds.size.width, 200);
+    self.errorView.backgroundColor = [UIColor blueColor];
+
+
     //    [self initFooterView];
     
 }

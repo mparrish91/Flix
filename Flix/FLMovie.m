@@ -31,7 +31,7 @@
     if ((value = dict[@"original_title"]) && [value isKindOfClass:[NSString class]])
         valuesForKeys[@"title"] = value;
     
-    if ((value = dict[@"popularity"]) && [value isKindOfClass:[NSString class]])
+    if ((value = dict[@"popularity"]) && [value respondsToSelector:@selector(doubleValue)])
         valuesForKeys[@"rating"] = value;
     
     

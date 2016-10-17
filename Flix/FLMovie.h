@@ -17,7 +17,7 @@
 @property(strong,readonly,nonatomic) NSString *overview;
 @property(strong,readonly,nonatomic) NSDate *releaseDate;
 @property(readonly,nonatomic) NSInteger runtime;
-@property(readonly,nonatomic) NSString *rating;
+@property(readonly,nonatomic) NSNumber *rating;
 
 - (instancetype)initWithServerRepresentation:(NSDictionary *)dict;
 

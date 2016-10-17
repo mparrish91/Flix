@@ -17,6 +17,6 @@
 @property(strong,readwrite,nonatomic) NSString *posterPath;
 @property(strong,readwrite,nonatomic) NSDate *releaseDate;
 @property(readwrite,nonatomic) NSInteger runtime;
-@property(readwrite,nonatomic) NSString *rating;
+@property(readwrite,nonatomic) NSNumber *rating;
 
 @end
