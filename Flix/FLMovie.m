@@ -31,8 +31,8 @@
     if ((value = dict[@"original_title"]) && [value isKindOfClass:[NSString class]])
         valuesForKeys[@"title"] = value;
     
-    if ((value = dict[@"popularity"]) && [value respondsToSelector:@selector(doubleValue)])
-        valuesForKeys[@"rating"] = @([value integerValue]);
+    if ((value = dict[@"popularity"]) && [value isKindOfClass:[NSString class]])
+        valuesForKeys[@"rating"] = value;
     
     
 //    FLPerformSyncOnMainThread(^{

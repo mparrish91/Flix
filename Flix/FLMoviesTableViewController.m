@@ -92,13 +92,14 @@
     
     [self setConstraints];
     [self fetchMovies];
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
 }
 
 
 - (void)fetchMovies
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+
     FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
     [networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
      {
@@ -172,7 +173,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
     FLMovie *movie = [self.movies objectAtIndex:indexPath.row];
-    FLMovieDetailViewController *detailVC = [[FLMovieDetailViewController alloc]initWithURL:[movie posterPath]];
+    FLMovieDetailViewController *detailVC = [[FLMovieDetailViewController alloc]initWithMovie:movie];
+//    FLMovieDetailViewController *detailVC = [[FLMovieDetailViewController alloc]initWithURL:[movie posterPath]];
     [self.navigationController pushViewController:detailVC animated:true];
 }
 
@@ -235,15 +237,7 @@
     
 }
 
-- (NSString *)convertDateToString: (NSDate *)date
-{
-    
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM.YY"];
-    NSString *dateStr = [dateFormat stringFromDate:date];
-    
-    return dateStr;
-}
+
 
 
 @end

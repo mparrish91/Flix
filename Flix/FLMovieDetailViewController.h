@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FLMovie.h"
+
 
 @interface FLMovieDetailViewController : UIViewController
 
 - (instancetype)initWithURL:(NSString *)url;
+- (instancetype)initWithMovie:(FLMovie *)movie;
 
 
 @end

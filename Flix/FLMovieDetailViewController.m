@@ -8,12 +8,17 @@
 
 #import "FLMovieDetailViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "FLMovieDetailView.h"
+#import "FLMovie.h"
 
 
 @interface FLMovieDetailViewController ()
 
 @property(strong,nonatomic) UIImageView *posterImageView;
 @property(strong,readwrite,nonatomic) NSString *url;
+@property(strong,nonatomic) FLMovieDetailView *detailView;
+
+@property(strong,readwrite,nonatomic) FLMovie *movie;
 
 
 @end
@@ -23,10 +28,28 @@
 
 #pragma mark - Initialize
 
+- (instancetype)initWithMovie:(FLMovie *)movie
+{
+    self.posterImageView = [[UIImageView alloc]init];
+    self.detailView = [[UIImageView alloc]init];
+    
+    
+    if (!(self = [super init]))
+        return nil;
+    
+    self.movie = movie;
+    
+    
+    return  self;
+    
+}
+
 
 - (instancetype)initWithURL:(NSString *)url
 {
     self.posterImageView = [[UIImageView alloc]init];
+    self.posterImageView = [[UIImageView alloc]init];
+
     
     if (!(self = [super init]))
         return nil;
@@ -45,7 +68,7 @@
     [super viewDidLoad];
     
     [self setConstraints];
-    [self.posterImageView setImageWithURL:[NSURL URLWithString:self.url] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
+    [self.posterImageView setImageWithURL:[NSURL URLWithString:[self.movie posterPath]] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
     [self.view addGestureRecognizer:tapGesture];
