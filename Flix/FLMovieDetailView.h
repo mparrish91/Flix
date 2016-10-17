@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FLMovie.h"
+
 
 @interface FLMovieDetailView : UIView
 
@@ -15,6 +17,8 @@
 
 @property(strong,readwrite,nonatomic) UILabel *releaseDateLabel;
 @property(strong,readwrite,nonatomic) UILabel *ratingLabel;
+
+- (instancetype)initWithMovie:(FLMovie *)movie;
 
 
 

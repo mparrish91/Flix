@@ -26,7 +26,7 @@
         valuesForKeys[@"overview"] = value;
     
     if ((value = dict[@"release_date"]) && [value isKindOfClass:[NSString class]])
-        valuesForKeys[@"releaseDate"] = value;
+        valuesForKeys[@"releaseDate"] = [self convertStringToDate:value];
     
     if ((value = dict[@"original_title"]) && [value isKindOfClass:[NSString class]])
         valuesForKeys[@"title"] = value;
@@ -59,6 +59,16 @@ NSString* FLMovieImageURLFromString(NSString *str)
     NSString *returnString = [url stringByAppendingString:str];
 
     return returnString;
+}
+
+
+- (NSDate *)convertStringToDate: (NSString *)str
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"YYYY-mm-dd"];
+    NSDate *date = [dateFormat dateFromString:str];
+    
+    return date;
 }
 
 

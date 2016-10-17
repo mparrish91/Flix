@@ -31,7 +31,7 @@
 - (instancetype)initWithMovie:(FLMovie *)movie
 {
     self.posterImageView = [[UIImageView alloc]init];
-    self.detailView = [[UIImageView alloc]init];
+    self.detailView = [[FLMovieDetailView alloc]initWithMovie:movie];
     
     
     if (!(self = [super init]))
@@ -88,6 +88,8 @@
     view.backgroundColor = [UIColor whiteColor];
     
     [view addSubview:self.posterImageView];
+    [view addSubview:self.detailView];
+
 }
 
 - (void)imageTapped:(UITapGestureRecognizer *)sender
@@ -103,15 +105,23 @@
 
 -(void)setConstraints
 {
-    
-    UIView *view = self.view;
+
+    UILayoutGuide *margins = self.view.layoutMarginsGuide;
     
     self.posterImageView.translatesAutoresizingMaskIntoConstraints = false;
-    [self.posterImageView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
-    [self.posterImageView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
-    [self.posterImageView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
-    [self.posterImageView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor].active = YES;
+    [self.posterImageView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor].active = YES;
+    [self.posterImageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
+    [self.posterImageView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
+    [self.posterImageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor].active = YES;
     self.posterImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    self.detailView.translatesAutoresizingMaskIntoConstraints = false;
+    [self.detailView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
+    [self.detailView.trailingAnchor constraintEqualToAnchor:margins.trailingAnchor].active = YES;
+    [self.detailView.heightAnchor constraintEqualToConstant: 300].active = YES;
+    [self.detailView.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor].active = YES;
+
+    self.detailView.contentMode = UIViewContentModeScaleAspectFit;
     
 }
 
