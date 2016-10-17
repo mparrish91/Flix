@@ -226,12 +226,11 @@
     
     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = view;
-    [view addSubview:self.moviesTableView];
+//    [view addSubview:self.moviesTableView];
     [view addSubview:self.errorView];
     
-    [view bringSubviewToFront:self.errorView];
-   self.errorView.frame = CGRectMake(0, 100, self.moviesTableView.bounds.size.width, 200);
-    self.errorView.backgroundColor = [UIColor blueColor];
+//    [view bringSubviewToFront:self.errorView];
+//   self.errorView.frame = CGRectMake(0, 100, self.moviesTableView.bounds.size.width, 50);
 
 
     //    [self initFooterView];
@@ -243,12 +242,28 @@
 {
     
     UIView *view= self.view;
+    UILayoutGuide *margins = self.view.layoutMarginsGuide;
+
     
-    self.moviesTableView.translatesAutoresizingMaskIntoConstraints = false;
-    [self.moviesTableView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
-    [self.moviesTableView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
-    [self.moviesTableView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
-    [self.moviesTableView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor].active = YES;
+//    self.moviesTableView.translatesAutoresizingMaskIntoConstraints = false;
+//    [self.moviesTableView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
+//    [self.moviesTableView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
+//    [self.moviesTableView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
+//    [self.moviesTableView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor].active = YES;
+    
+    CGFloat height =  self.navigationController.navigationBar.frame.size.height;
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
+
+ 
+        self.errorView.translatesAutoresizingMaskIntoConstraints = false;
+        [self.errorView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
+        [self.errorView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
+        [self.errorView.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
+        [self.errorView.heightAnchor constraintEqualToConstant:30].active = YES;
+
+    
+//        [self.errorView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor].active = YES;
+
     
 }
 
