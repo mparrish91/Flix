@@ -30,7 +30,7 @@
     
 
     [self addSubview:self.errorImageView];
-//    [self addSubview:self.titleLabel];
+    [self addSubview:self.titleLabel];
     
     return self;
 }
@@ -46,24 +46,24 @@
     
     
     self.errorImageView.translatesAutoresizingMaskIntoConstraints = false;
-    [self.errorImageView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
+    [self.errorImageView.centerXAnchor constraintEqualToAnchor:margins.centerXAnchor constant:-50].active = YES;
     [self.errorImageView.centerYAnchor constraintEqualToAnchor:margins.centerYAnchor].active = YES;
-//    [self.errorImageView.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor].active = YES;
     [self.errorImageView.widthAnchor constraintEqualToConstant:21].active = YES;
     [self.errorImageView.heightAnchor constraintEqualToConstant:21].active = YES;
+    [self.errorImageView setTintColor:[UIColor whiteColor]];
 
 
     self.errorImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.errorImageView.image = [UIImage imageNamed:@"errorViewIcon"];
-//    
-//    
-//    self.titleLabel.translatesAutoresizingMaskIntoConstraints = false;
-//    [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.errorImageView.trailingAnchor constant:-10].active = YES;
-//    [self.titleLabel.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
-//    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Book" size:13];
-//    self.titleLabel.textAlignment = NSTextAlignmentLeft;
-//    self.titleLabel.text = @"Network Error";
-//    self.titleLabel.textColor = [UIColor whiteColor];
+    
+    
+    self.titleLabel.translatesAutoresizingMaskIntoConstraints = false;
+    [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.errorImageView.trailingAnchor constant: 5].active = YES;
+    [self.titleLabel.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
+    self.titleLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12];
+    self.titleLabel.textAlignment = NSTextAlignmentLeft;
+    self.titleLabel.text = @"Network Error";
+    self.titleLabel.textColor = [UIColor whiteColor];
 
 }
 
