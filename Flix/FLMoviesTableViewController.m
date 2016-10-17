@@ -113,6 +113,15 @@
      {
          self.movies = objects;
      
+         if (error)
+         {
+             [self showErrorView:self.errorView];
+         }
+         else
+         {
+             [self hideErrorView:self.errorView];
+
+         }
          
          dispatch_async(dispatch_get_main_queue(), ^{
              [self.moviesTableView reloadData];
@@ -121,14 +130,7 @@
              [self.loadingMoreView startAnimating];
              [MBProgressHUD hideHUDForView:self.view animated:YES];
 
-             
-             if ([[NSThread currentThread] isMainThread]){
-                 NSLog(@"In main thread--completion handler");
-             }
-             else{
-                 NSLog(@"Not in main thread--completion handler");
-             }
-         });
+             });
 
          
      }
@@ -226,14 +228,8 @@
     
     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = view;
-//    [view addSubview:self.moviesTableView];
+    [view addSubview:self.moviesTableView];
     [view addSubview:self.errorView];
-    
-//    [view bringSubviewToFront:self.errorView];
-//   self.errorView.frame = CGRectMake(0, 100, self.moviesTableView.bounds.size.width, 50);
-
-
-    //    [self initFooterView];
     
 }
 
@@ -243,26 +239,21 @@
     
     UIView *view= self.view;
     UILayoutGuide *margins = self.view.layoutMarginsGuide;
-
     
-//    self.moviesTableView.translatesAutoresizingMaskIntoConstraints = false;
-//    [self.moviesTableView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
-//    [self.moviesTableView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
-//    [self.moviesTableView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
-//    [self.moviesTableView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor].active = YES;
     
-    CGFloat height =  self.navigationController.navigationBar.frame.size.height;
+    self.moviesTableView.translatesAutoresizingMaskIntoConstraints = false;
+    [self.moviesTableView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
+    [self.moviesTableView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
+    [self.moviesTableView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
+    [self.moviesTableView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor].active = YES;
+    
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
-
- 
-        self.errorView.translatesAutoresizingMaskIntoConstraints = false;
-        [self.errorView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
-        [self.errorView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
-        [self.errorView.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
-        [self.errorView.heightAnchor constraintEqualToConstant:30].active = YES;
-
     
-
+    self.errorView.translatesAutoresizingMaskIntoConstraints = false;
+    [self.errorView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
+    [self.errorView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
+    [self.errorView.topAnchor constraintEqualToAnchor:margins.topAnchor].active = YES;
+    [self.errorView.heightAnchor constraintEqualToConstant:30].active = YES;
     
 }
 
