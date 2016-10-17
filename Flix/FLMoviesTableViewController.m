@@ -262,10 +262,31 @@
         [self.errorView.heightAnchor constraintEqualToConstant:30].active = YES;
 
     
-//        [self.errorView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor].active = YES;
 
     
 }
+
+- (void)hideErrorView:(FLErrorView *)errorView
+{
+    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:1.0 options:0 animations:^{
+        
+        errorView.hidden = true;
+    } completion:^(BOOL finished) {
+    }];
+
+}
+
+- (void)showErrorView:(FLErrorView *)errorView
+{
+    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:1.0 options:0 animations:^{
+        
+        errorView.hidden = false;
+
+    } completion:^(BOOL finished) {
+    }];
+
+}
+
 
 
 
