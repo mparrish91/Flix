@@ -111,8 +111,8 @@
     FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
     [networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
      {
-         self.movies = objects;
-     
+         [self.movies addObjectsFromArray:objects];
+
          if (error)
          {
              [self showErrorView:self.errorView];

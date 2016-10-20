@@ -6,8 +6,9 @@
 //  Copyright © 2016 parry. All rights reserved.
 //
 
+#import "FLMoviesTableViewController.h"
 #import <UIKit/UIKit.h>
 
-@interface FLTopRatedTableViewController : UIViewController
+@interface FLTopRatedTableViewController : FLMoviesTableViewController
 
 @end

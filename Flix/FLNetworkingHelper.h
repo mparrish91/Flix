@@ -13,7 +13,10 @@ typedef void(^FLDataRequestHandler)(id responseObject, NSHTTPURLResponse *urlRes
 
 @interface FLNetworkingHelper : NSObject
 
-- (void)fetchTopRatedWithHandler:(FLDataRequestHandler)handler;
+//- (void)fetchTopRatedWithHandler:(FLDataRequestHandler)handler;
+
+- (void)fetchTopRatedWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler;
+
 
 - (void)fetchNowPlayingWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler;
 

@@ -7,6 +7,18 @@
 //
 
 #import "FLTopRatedTableViewController.h"
+#import "FLMoviesTableViewController.m"
+
+//#import "FLMoviesTableViewController.h"
+//#import "FLMovieDetailViewController.h"
+//#import "FLMovieTableViewCell.h"
+//#import "FLMovie.h"
+//#import "UIImageView+AFNetworking.h"
+//#import "FLNetworkingHelper.h"
+//#import "FLInfiniteScrollActivityView.h"
+//#import "MBProgressHUD.h"
+//#import "FLErrorView.h"
+
 
 @interface FLTopRatedTableViewController ()
 
@@ -14,24 +26,40 @@
 
 @implementation FLTopRatedTableViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+- (void)fetchMovies
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
+    [networkingHelper fetchTopRatedWithCompletionHandler:^(NSArray *objects, NSError *error)
+     {
+         self.movies = objects;
+         
+         if (error)
+         {
+             [self showErrorView:self.errorView];
+         }
+         else
+         {
+             [self hideErrorView:self.errorView];
+             
+         }
+         
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [self.moviesTableView reloadData];
+             [self.refreshControl endRefreshing];
+             self.isMoreDataLoading = false;
+             [self.loadingMoreView startAnimating];
+             [MBProgressHUD hideHUDForView:self.view animated:YES];
+             
+         });
+         
+         
+     }
+     
+     ];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

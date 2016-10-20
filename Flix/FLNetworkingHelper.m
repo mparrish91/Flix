@@ -10,7 +10,11 @@
 #import "FLHTTPClient.h"
 #import "FLMovie.h"
 
+@interface FLNetworkingHelper()
 
+@property (assign) int offset;
+
+@end
 
 @implementation FLNetworkingHelper
 
@@ -24,22 +28,47 @@
     return sharedInstance;
 }
 
-- (void)fetchTopRatedWithHandler:(FLDataRequestHandler)handler
+- (void)fetchTopRatedWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler
 {
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/top_rated?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
     FLHTTPClient *httpClient = [[FLHTTPClient alloc]initWithURL:url];
-    [httpClient performJSONRequestWithHandler:^(NSData *data, NSHTTPURLResponse *response, NSError *error)
+    
+    NSHTTPURLResponse *response=nil;
+    NSError *error = nil;
+    
+    
+    //TODO: handle the urlrespnse and error
+    [httpClient performJSONRequestWithHandler:^(id responseObject, NSHTTPURLResponse *response, NSError *error)
      {
          
-     }
-     ];
-    
+         
+         NSMutableArray *objects = nil;
+         
+         if (!error && [responseObject isKindOfClass:[NSDictionary class]]) {
+             NSArray *objectRepresentations = responseObject[@"results"];
+             objects = [NSMutableArray arrayWithCapacity:objectRepresentations.count];
+             
+             for (NSDictionary *dict in objectRepresentations) {
+                 FLMovie *object = [[FLMovie alloc] initWithServerRepresentation:dict];
+                 if (object) [objects addObject:object];
+             }
+             
+             self.offset++;
+         }
+         
+         
+         dispatch_async(dispatch_get_main_queue(), ^{
+             if (completionHandler) completionHandler(objects, error);
+         });
+         
+     }];
 }
 
 
 - (void)fetchNowPlayingWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler
 {
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
+    NSString *url = [NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&page=%d", self.offset];
+
     
     FLHTTPClient *httpClient = [[FLHTTPClient alloc]initWithURL:url];
     

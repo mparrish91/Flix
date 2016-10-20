@@ -45,7 +45,7 @@
 
 - (void)setupActivityIndicator
 {
-    self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.activityIndicatorView.hidesWhenStopped = true;
     [self addSubview: self.activityIndicatorView];
     
