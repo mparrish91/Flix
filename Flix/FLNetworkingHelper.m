@@ -18,9 +18,18 @@
 
 @implementation FLNetworkingHelper
 
+
+-(id)init {
+    if (self = [super init]) {
+        _offset = 1;
+    }
+    return self;
+}
+
 + (instancetype)sharedInstance
 {
     static FLNetworkingHelper *sharedInstance = nil;
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[FLNetworkingHelper alloc] init];
@@ -76,7 +85,7 @@
     NSError *error = nil;
     
     
-    //TODO: handle the urlrespnse and error
+    //TODO: handle the urlresponse and error
     [httpClient performJSONRequestWithHandler:^(id responseObject, NSHTTPURLResponse *response, NSError *error)
      {
          
