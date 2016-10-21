@@ -21,6 +21,7 @@
 @property(strong,readwrite,nonatomic) FLMovie *movie;
 
 
+
 @end
 
 @implementation FLMovieDetailViewController

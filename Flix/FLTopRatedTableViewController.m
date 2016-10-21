@@ -7,20 +7,30 @@
 //
 
 #import "FLTopRatedTableViewController.h"
-#import "FLMoviesTableViewController.m"
-
-//#import "FLMoviesTableViewController.h"
-//#import "FLMovieDetailViewController.h"
-//#import "FLMovieTableViewCell.h"
-//#import "FLMovie.h"
-//#import "UIImageView+AFNetworking.h"
-//#import "FLNetworkingHelper.h"
-//#import "FLInfiniteScrollActivityView.h"
-//#import "MBProgressHUD.h"
-//#import "FLErrorView.h"
+#import "FLMoviesTableViewController.h"
+#import "FLMovieDetailViewController.h"
+#import "FLMovieTableViewCell.h"
+#import "FLMovie.h"
+#import "UIImageView+AFNetworking.h"
+#import "FLNetworkingHelper.h"
+#import "FLInfiniteScrollActivityView.h"
+#import "MBProgressHUD.h"
+#import "FLErrorView.h"
 
 
 @interface FLTopRatedTableViewController ()
+
+@property(strong,readwrite,nonatomic) NSMutableArray *movies;
+@property (nonatomic,assign) BOOL isMoreDataLoading;
+
+
+@property(nonatomic,strong) UITableView *moviesTableView;
+@property(nonatomic,strong) UISearchBar *movieSearchBar;
+@property(nonatomic,strong) UIRefreshControl *refreshControl;
+@property(nonatomic,strong) FLErrorView *errorView;
+
+@property(nonatomic,strong) FLInfiniteScrollActivityView *loadingMoreView;
+
 
 @end
 
@@ -59,6 +69,29 @@
      }
      
      ];
+}
+
+
+
+- (void)hideErrorView:(FLErrorView *)errorView
+{
+    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:1.0 options:0 animations:^{
+        
+        errorView.hidden = true;
+    } completion:^(BOOL finished) {
+    }];
+    
+}
+
+- (void)showErrorView:(FLErrorView *)errorView
+{
+    [UIView animateWithDuration:1.0 delay:0.0 usingSpringWithDamping:0.5 initialSpringVelocity:1.0 options:0 animations:^{
+        
+        errorView.hidden = false;
+        
+    } completion:^(BOOL finished) {
+    }];
+    
 }
 
 

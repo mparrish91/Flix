@@ -18,12 +18,9 @@
 
 
 
-
-
-
 @interface FLMoviesTableViewController ()
 
-@property(strong,readwrite,nonatomic) NSArray *movies;
+@property(strong,readwrite,nonatomic) NSMutableArray *movies;
 @property (nonatomic,assign) BOOL isMoreDataLoading;
 
 
@@ -111,7 +108,6 @@
     FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
     [networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
      {
-         [self.movies addObjectsFromArray:objects];
 
          if (error)
          {
@@ -122,6 +118,8 @@
              [self hideErrorView:self.errorView];
 
          }
+         [self.movies addObjectsFromArray:objects];
+
          
          dispatch_async(dispatch_get_main_queue(), ^{
              [self.moviesTableView reloadData];

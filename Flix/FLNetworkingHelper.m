@@ -67,7 +67,7 @@
 
 - (void)fetchNowPlayingWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler
 {
-    NSString *url = [NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&page=%d", self.offset];
+    NSString *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&page=%d", self.offset]];
 
     
     FLHTTPClient *httpClient = [[FLHTTPClient alloc]initWithURL:url];
@@ -79,7 +79,6 @@
     //TODO: handle the urlrespnse and error
     [httpClient performJSONRequestWithHandler:^(id responseObject, NSHTTPURLResponse *response, NSError *error)
      {
-         
          
          NSMutableArray *objects = nil;
          
