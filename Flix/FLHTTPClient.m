@@ -45,17 +45,13 @@
                 NSLog(@"Error parsing JSON: %@", serializationError);
             }
         
-        
         if (handler)
             handler(JSONObject, (NSHTTPURLResponse *)response, error);
             
             
         }
     }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
         [dataTask resume];
-    });
     
 }
 

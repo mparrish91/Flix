@@ -122,7 +122,7 @@
              [self.moviesTableView reloadData];
              [self.refreshControl endRefreshing];
              self.isMoreDataLoading = false;
-//             [self.loadingMoreView stopAnimating];
+             [self.loadingMoreView stopAnimating];
              [MBProgressHUD hideHUDForView:self.view animated:YES];
 
              });
@@ -204,8 +204,6 @@
             CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
             self.loadingMoreView.frame = frame;
             [self.loadingMoreView startAnimating];
-            
-            
             [self fetchMovies];
             
         }
@@ -282,20 +280,10 @@
 }
 
 -(void)addSearchBar {
-    
-//    self.movieSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
-//    self.movieSearchBar = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-//    self.movieSearchBar.delegate = self;
-//    self.movieSearchBar.searchResultsDataSource = self;
-//    
-//    self.tableView.tableHeaderView = searchBar;
-//    self.movieSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 70, 320, 44)];
+
     UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:self];
-    // Use the current view controller to update the search results.
     searchController.searchResultsUpdater = self;
-    // Install the search bar as the table header.
     self.navigationItem.titleView = searchController.searchBar;
-    // It is usually good to set the presentation context.
     self.definesPresentationContext = YES;
 }
 
