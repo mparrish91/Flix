@@ -89,7 +89,7 @@
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     UIEdgeInsets insets = self.moviesTableView.contentInset;
-    insets.bottom += FLInfiniteScrollActivityView.defaultHeight;
+    insets.bottom += FLInfiniteScrollActivityView.defaultHeight + self.tabBarController.tabBar.frame.size.height;
     self.moviesTableView.contentInset = insets;
 
     
@@ -119,10 +119,11 @@
 
          
          dispatch_async(dispatch_get_main_queue(), ^{
-             [self.moviesTableView reloadData];
-             [self.refreshControl endRefreshing];
              self.isMoreDataLoading = false;
              [self.loadingMoreView stopAnimating];
+
+             [self.refreshControl endRefreshing];
+             [self.moviesTableView reloadData];
              [MBProgressHUD hideHUDForView:self.view animated:YES];
 
              });
@@ -201,9 +202,10 @@
         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.moviesTableView.dragging) {
             self.isMoreDataLoading = true;
             
-            CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
+            CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight + self.tabBarController.tabBar.frame.size.height);
             self.loadingMoreView.frame = frame;
             [self.loadingMoreView startAnimating];
+            
             [self fetchMovies];
             
         }
@@ -273,10 +275,11 @@
 {
     CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
     self.loadingMoreView = [[FLInfiniteScrollActivityView alloc]initWithFrame:frame];
-//    self.loadingMoreView.hidden = true;
+    self.loadingMoreView.hidden = true;
     [self.moviesTableView addSubview:self.loadingMoreView];
     self.loadingMoreView.backgroundColor = [UIColor yellowColor];
-    [self.loadingMoreView startAnimating];
+    
+    
 }
 
 -(void)addSearchBar {
