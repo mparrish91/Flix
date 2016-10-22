@@ -25,11 +25,11 @@
 
 
 @property(nonatomic,strong) UITableView *moviesTableView;
-@property(nonatomic,strong) UISearchController *searchController;
 @property(nonatomic,strong) UIRefreshControl *refreshControl;
 @property(nonatomic,strong) FLErrorView *errorView;
 @property(nonatomic,strong) FLNetworkingHelper *networkingHelper;
 
+@property(nonatomic,strong) UISearchController *searchController;
 @property (nonatomic, strong) NSMutableArray * filteredMovies;
 @property (nonatomic, weak) NSArray * displayedItems;
 
@@ -47,7 +47,7 @@
 - (instancetype)init
 {
     self.moviesTableView = [[UITableView alloc]init];
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:self];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 
     self.errorView = [[FLErrorView alloc]init];
     self.movies = [[NSMutableArray alloc] init];
@@ -301,11 +301,15 @@
 
     self.searchController.searchResultsUpdater = self;
     self.navigationItem.titleView = self.searchController.searchBar;
-    self.definesPresentationContext = YES;
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.delegate = self;
+
     [self.searchController.searchBar sizeToFit];
+
     
+//    self.definesPresentationContext = YES;
+
+     self.moviesTableView.tableHeaderView = self.searchController.searchBar;
     // Hides search bar initially.  When the user pulls down on the list, the search bar is revealed.
    [self.moviesTableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
 
@@ -332,10 +336,10 @@
     // Check if the user cancelled or deleted the search term so we can display the full list instead.
     if (![searchString isEqualToString:@""]) {
         [self.filteredMovies removeAllObjects];
-        for (NSString *str in self.movies) {
-            if ([searchString isEqualToString:@""] || [str localizedCaseInsensitiveContainsString:searchString] == YES) {
-                NSLog(@"str=%@", str);
-                [self.filteredMovies addObject:str];
+        for (FLMovie *movie in self.movies) {
+            if ([searchString isEqualToString:@""] || [movie.title localizedCaseInsensitiveContainsString:searchString] == YES) {
+                NSLog(@"str=%@", movie.title);
+                [self.filteredMovies addObject:movie];
             }
         }
         self.displayedItems = self.filteredMovies;
