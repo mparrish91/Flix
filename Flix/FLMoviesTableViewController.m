@@ -306,6 +306,8 @@
 
     [self.searchController.searchBar sizeToFit];
 
+    self.searchController.hidesNavigationBarDuringPresentation = NO;
+    self.definesPresentationContext = NO;
     
 //    self.definesPresentationContext = YES;
 
@@ -338,6 +340,18 @@
     
 }
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self.moviesTableView setContentOffset:CGPointMake(0, 0)];
+
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    [self.moviesTableView setContentOffset:CGPointMake(0, 0)];
+
+}
+
 
 // When the user types in the search bar, this method gets called.
 - (void)updateSearchResultsForSearchController:(UISearchController *)aSearchController {
@@ -346,7 +360,7 @@
     NSString *searchString = aSearchController.searchBar.text;
     NSLog(@"searchString=%@", searchString);
     
-    [self.moviesTableView setContentOffset:CGPointMake(0, 0)];
+//    [self.moviesTableView setContentOffset:CGPointMake(0, 0)];
 
     
     // Check if the user cancelled or deleted the search term so we can display the full list instead.
