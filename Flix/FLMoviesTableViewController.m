@@ -300,7 +300,7 @@
 -(void)addSearchBar {
 
     self.searchController.searchResultsUpdater = self;
-    self.navigationItem.titleView = self.searchController.searchBar;
+//    self.navigationItem.titleView = self.searchController.searchBar;
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.delegate = self;
 
@@ -314,6 +314,19 @@
    [self.moviesTableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
 
 }
+
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    return self.searchController.searchBar;
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return self.searchController.searchBar.frame.size.height;
+//
+//    
+//}
+
 
 
 - (void)viewDidLayoutSubviews
@@ -345,7 +358,7 @@
         self.displayedItems = self.filteredMovies;
     }
     else {
-        self.displayedItems = self.movies   ;
+        self.displayedItems = self.movies;
     }
     [self.moviesTableView reloadData];
 }
