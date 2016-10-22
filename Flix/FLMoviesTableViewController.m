@@ -25,7 +25,7 @@
 
 
 @property(nonatomic,strong) UITableView *moviesTableView;
-@property(nonatomic,strong) UISearchBar *movieSearchBar;
+@property(nonatomic,strong) UISearchController *searchController;
 @property(nonatomic,strong) UIRefreshControl *refreshControl;
 @property(nonatomic,strong) FLErrorView *errorView;
 @property(nonatomic,strong) FLNetworkingHelper *networkingHelper;
@@ -45,7 +45,7 @@
 - (instancetype)init
 {
     self.moviesTableView = [[UITableView alloc]init];
-//    self.movieSearchBar = [[UISearchBar alloc]init];
+    self.searchController = [[UISearchController alloc]init];
     self.errorView = [[FLErrorView alloc]init];
     self.movies = [[NSMutableArray alloc] init];
     self.networkingHelper = [[FLNetworkingHelper alloc]init];
@@ -77,7 +77,6 @@
     self.title = @"Flix";
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.7];
-    self.movieSearchBar.frame = CGRectMake(0, 0, 320, 50);
     
     //tableview
     NSString *cellIdentifier = @"cell";
@@ -120,11 +119,21 @@
          
          dispatch_async(dispatch_get_main_queue(), ^{
              self.isMoreDataLoading = false;
-             [self.loadingMoreView stopAnimating];
-
-             [self.refreshControl endRefreshing];
              [self.moviesTableView reloadData];
-             [MBProgressHUD hideHUDForView:self.view animated:YES];
+             
+             
+             if ([[NSThread currentThread] isMainThread]){
+                 NSLog(@"In main thread--completion handler");
+                 
+                 [self.refreshControl endRefreshing];
+                 [self.loadingMoreView stopAnimating];
+                 [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+
+             }
+             else{
+                 NSLog(@"Not in main thread--completion handler");
+             }
 
              });
      }
@@ -284,9 +293,9 @@
 
 -(void)addSearchBar {
 
-    UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:self];
-    searchController.searchResultsUpdater = self;
-    self.navigationItem.titleView = searchController.searchBar;
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:self];
+    self.searchController.searchResultsUpdater = self;
+    self.navigationItem.titleView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
 }
 
