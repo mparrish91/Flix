@@ -28,6 +28,8 @@
 @property(nonatomic,strong) UISearchBar *movieSearchBar;
 @property(nonatomic,strong) UIRefreshControl *refreshControl;
 @property(nonatomic,strong) FLErrorView *errorView;
+@property(nonatomic,strong) FLNetworkingHelper *networkingHelper;
+
 
 
 
@@ -43,9 +45,10 @@
 - (instancetype)init
 {
     self.moviesTableView = [[UITableView alloc]init];
-    self.movieSearchBar = [[UISearchBar alloc]init];
+//    self.movieSearchBar = [[UISearchBar alloc]init];
     self.errorView = [[FLErrorView alloc]init];
     self.movies = [[NSMutableArray alloc] init];
+    self.networkingHelper = [[FLNetworkingHelper alloc]init];
 
     
     self = [super init];
@@ -85,12 +88,6 @@
     [self.moviesTableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
-    
-    CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
-    self.loadingMoreView = [[FLInfiniteScrollActivityView alloc]initWithFrame:frame];
-    self.loadingMoreView.hidden = true;
-    [self.moviesTableView addSubview:self.loadingMoreView];
-    
     UIEdgeInsets insets = self.moviesTableView.contentInset;
     insets.bottom += FLInfiniteScrollActivityView.defaultHeight;
     self.moviesTableView.contentInset = insets;
@@ -106,8 +103,7 @@
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-    FLNetworkingHelper *networkingHelper = [[FLNetworkingHelper alloc]init];
-    [networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
+    [self.networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
      {
 
          if (error)
@@ -126,12 +122,10 @@
              [self.moviesTableView reloadData];
              [self.refreshControl endRefreshing];
              self.isMoreDataLoading = false;
-             [self.loadingMoreView startAnimating];
+//             [self.loadingMoreView stopAnimating];
              [MBProgressHUD hideHUDForView:self.view animated:YES];
 
              });
-
-         
      }
      
      ];
@@ -277,7 +271,43 @@
 
 }
 
+- (void)setupInfiniteScrollView
+{
+    CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
+    self.loadingMoreView = [[FLInfiniteScrollActivityView alloc]initWithFrame:frame];
+//    self.loadingMoreView.hidden = true;
+    [self.moviesTableView addSubview:self.loadingMoreView];
+    self.loadingMoreView.backgroundColor = [UIColor yellowColor];
+    [self.loadingMoreView startAnimating];
+}
 
+-(void)addSearchBar {
+    
+//    self.movieSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 64)];
+//    self.movieSearchBar = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+//    self.movieSearchBar.delegate = self;
+//    self.movieSearchBar.searchResultsDataSource = self;
+//    
+//    self.tableView.tableHeaderView = searchBar;
+//    self.movieSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 70, 320, 44)];
+    UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:self];
+    // Use the current view controller to update the search results.
+    searchController.searchResultsUpdater = self;
+    // Install the search bar as the table header.
+    self.navigationItem.titleView = searchController.searchBar;
+    // It is usually good to set the presentation context.
+    self.definesPresentationContext = YES;
+}
+
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    [self setupInfiniteScrollView];
+    [self addSearchBar];
+    
+}
 
 
 

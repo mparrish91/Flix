@@ -62,10 +62,10 @@
                  if (object) [objects addObject:object];
              }
              
-             self.offset++;
          }
          
-         
+         self.offset++;
+
          dispatch_async(dispatch_get_main_queue(), ^{
              if (completionHandler) completionHandler(objects, error);
          });
@@ -76,7 +76,7 @@
 
 - (void)fetchNowPlayingWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler
 {
-    NSString *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&page=%d", self.offset]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&page=%d", self.offset]];
 
     
     FLHTTPClient *httpClient = [[FLHTTPClient alloc]initWithURL:url];
@@ -101,7 +101,8 @@
              }
          }
          
-         
+         self.offset++;
+
          dispatch_async(dispatch_get_main_queue(), ^{
              if (completionHandler) completionHandler(objects, error);
          });
