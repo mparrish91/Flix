@@ -45,6 +45,7 @@
     self.moviesTableView = [[UITableView alloc]init];
     self.movieSearchBar = [[UISearchBar alloc]init];
     self.errorView = [[FLErrorView alloc]init];
+    self.movies = [[NSMutableArray alloc] init];
 
     
     self = [super init];

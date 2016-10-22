@@ -13,6 +13,7 @@
 #import "FLMoviesTableViewController.h"
 #import "FLMovieDetailViewController.h"
 #import "FLTabBarController.h"
+#import "FLTopRatedTableViewController.h"
 
 
 
@@ -46,10 +47,10 @@ FLTabBarController *tabBarController;
     
 
     //Create second vc embedded in nav
-    FLMovieDetailViewController *movieDetailVC =[[FLMovieDetailViewController alloc]init];
-    UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:movieDetailVC];
-    movieDetailVC.tabBarItem.title = @"Top Rated";
-    movieDetailVC.tabBarItem.image = [UIImage imageNamed:@"star"];
+    FLTopRatedTableViewController *topRatedVC =[[FLTopRatedTableViewController alloc]init];
+    UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:topRatedVC];
+    topRatedVC.tabBarItem.title = @"Top Rated";
+    topRatedVC.tabBarItem.image = [UIImage imageNamed:@"star"];
 
     
 
