@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FLMoviesTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UISearchResultsUpdating>
+@interface FLMoviesTableViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
 
 
 

@@ -30,6 +30,8 @@
 @property(nonatomic,strong) FLErrorView *errorView;
 @property(nonatomic,strong) FLNetworkingHelper *networkingHelper;
 
+@property (nonatomic, strong) NSMutableArray * filteredMovies;
+@property (nonatomic, weak) NSArray * displayedItems;
 
 
 
@@ -45,9 +47,12 @@
 - (instancetype)init
 {
     self.moviesTableView = [[UITableView alloc]init];
-    self.searchController = [[UISearchController alloc]init];
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:self];
+
     self.errorView = [[FLErrorView alloc]init];
     self.movies = [[NSMutableArray alloc] init];
+    self.filteredMovies = [[NSMutableArray alloc] init];
+
     self.networkingHelper = [[FLNetworkingHelper alloc]init];
 
     
@@ -115,8 +120,9 @@
 
          }
          [self.movies addObjectsFromArray:objects];
+         self.displayedItems = self.movies;
 
-         
+
          dispatch_async(dispatch_get_main_queue(), ^{
              self.isMoreDataLoading = false;
              [self.moviesTableView reloadData];
@@ -148,7 +154,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.movies.count;
+    return self.displayedItems.count;
 }
 
 
@@ -166,7 +172,7 @@
     {
         cell = [[FLMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    FLMovie *movie = [self.movies objectAtIndex:indexPath.row];
+    FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
     cell.titleLabel.text = [movie title];
 //    cell.overviewLabel.text = [self convertDateToString:movie.releaseDate];
     cell.overviewLabel.text = [movie overview];
@@ -211,7 +217,7 @@
         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.moviesTableView.dragging) {
             self.isMoreDataLoading = true;
             
-            CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight + self.tabBarController.tabBar.frame.size.height);
+            CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height - self.tabBarController.tabBar.frame.size.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
             self.loadingMoreView.frame = frame;
             [self.loadingMoreView startAnimating];
             
@@ -282,7 +288,7 @@
 
 - (void)setupInfiniteScrollView
 {
-    CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
+    CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height - self.tabBarController.tabBar.frame.size.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
     self.loadingMoreView = [[FLInfiniteScrollActivityView alloc]initWithFrame:frame];
     self.loadingMoreView.hidden = true;
     [self.moviesTableView addSubview:self.loadingMoreView];
@@ -293,10 +299,16 @@
 
 -(void)addSearchBar {
 
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:self];
     self.searchController.searchResultsUpdater = self;
     self.navigationItem.titleView = self.searchController.searchBar;
     self.definesPresentationContext = YES;
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.searchBar.delegate = self;
+    [self.searchController.searchBar sizeToFit];
+    
+    // Hides search bar initially.  When the user pulls down on the list, the search bar is revealed.
+   [self.moviesTableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
+
 }
 
 
@@ -308,6 +320,32 @@
     [self addSearchBar];
     
 }
+
+
+// When the user types in the search bar, this method gets called.
+- (void)updateSearchResultsForSearchController:(UISearchController *)aSearchController {
+    NSLog(@"updateSearchResultsForSearchController");
+    
+    NSString *searchString = aSearchController.searchBar.text;
+    NSLog(@"searchString=%@", searchString);
+    
+    // Check if the user cancelled or deleted the search term so we can display the full list instead.
+    if (![searchString isEqualToString:@""]) {
+        [self.filteredMovies removeAllObjects];
+        for (NSString *str in self.movies) {
+            if ([searchString isEqualToString:@""] || [str localizedCaseInsensitiveContainsString:searchString] == YES) {
+                NSLog(@"str=%@", str);
+                [self.filteredMovies addObject:str];
+            }
+        }
+        self.displayedItems = self.filteredMovies;
+    }
+    else {
+        self.displayedItems = self.movies   ;
+    }
+    [self.moviesTableView reloadData];
+}
+
 
 
 
