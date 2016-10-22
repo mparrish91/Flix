@@ -172,19 +172,40 @@
     {
         cell = [[FLMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
-    cell.titleLabel.text = [movie title];
-//    cell.overviewLabel.text = [self convertDateToString:movie.releaseDate];
-    cell.overviewLabel.text = [movie overview];
-    NSString *photoImageURL = [movie posterPath];
-
-
-    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
-    
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
+//    cell.titleLabel.text = [movie title];
+////    cell.overviewLabel.text = [self convertDateToString:movie.releaseDate];
+//    cell.overviewLabel.text = [movie overview];
+//    NSString *photoImageURL = [movie posterPath];
+//
+//
+//    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
+//    
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     
     return cell;
+}
+
+//This function is where all the magic happens
+-(void) tableView:(UITableView *) tableView willDisplayCell:(FLMovieTableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    [UIView beginAnimations:@"fade" context:nil];
+    [UIView setAnimationDuration:20.0];
+    [UIView setAnimationRepeatAutoreverses:YES];
+    [UIView setAnimationRepeatCount: 0.5];
+    FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
+    cell.titleLabel.text = [movie title];
+    //    cell.overviewLabel.text = [self convertDateToString:movie.releaseDate];
+    cell.overviewLabel.text = [movie overview];
+    NSString *photoImageURL = [movie posterPath];
+    
+    
+    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [UIView commitAnimations];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
