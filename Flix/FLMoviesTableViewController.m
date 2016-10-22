@@ -346,6 +346,9 @@
     NSString *searchString = aSearchController.searchBar.text;
     NSLog(@"searchString=%@", searchString);
     
+    [self.moviesTableView setContentOffset:CGPointMake(0, 0)];
+
+    
     // Check if the user cancelled or deleted the search term so we can display the full list instead.
     if (![searchString isEqualToString:@""]) {
         [self.filteredMovies removeAllObjects];
