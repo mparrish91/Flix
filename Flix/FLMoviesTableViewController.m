@@ -95,6 +95,11 @@
     UIEdgeInsets insets = self.moviesTableView.contentInset;
     insets.bottom += FLInfiniteScrollActivityView.defaultHeight + self.tabBarController.tabBar.frame.size.height;
     self.moviesTableView.contentInset = insets;
+    
+    //autoresizing rows
+    self.moviesTableView.estimatedRowHeight = 100;
+    self.moviesTableView.rowHeight = UITableViewAutomaticDimension;
+
 
     
     [self setConstraints];
@@ -125,11 +130,16 @@
 
          dispatch_async(dispatch_get_main_queue(), ^{
              self.isMoreDataLoading = false;
-             [self.moviesTableView reloadData];
              
              
              if ([[NSThread currentThread] isMainThread]){
                  NSLog(@"In main thread--completion handler");
+                 
+                 CGFloat oldOffset = self.moviesTableView.contentSize.height;
+                 [self.moviesTableView reloadData];
+                 CGPoint new = CGPointMake(0, oldOffset);
+
+//                 [self.moviesTableView setContentOffset:new];
                  
                  [self.refreshControl endRefreshing];
                  [self.loadingMoreView stopAnimating];
@@ -334,7 +344,7 @@
 
      self.moviesTableView.tableHeaderView = self.searchController.searchBar;
     // Hides search bar initially.  When the user pulls down on the list, the search bar is revealed.
-   [self.moviesTableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
+//   [self.moviesTableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
 
 }
 
@@ -357,7 +367,7 @@
     [super viewDidLayoutSubviews];
     
     [self setupInfiniteScrollView];
-    [self addSearchBar];
+//    [self addSearchBar];
     
 }
 
@@ -398,7 +408,7 @@
     else {
         self.displayedItems = self.movies;
     }
-    [self.moviesTableView reloadData];
+//    [self.moviesTableView reloadData];
 }
 
 

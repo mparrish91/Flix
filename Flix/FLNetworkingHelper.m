@@ -66,9 +66,8 @@
          
          self.offset++;
 
-         dispatch_async(dispatch_get_main_queue(), ^{
-             if (completionHandler) completionHandler(objects, error);
-         });
+        if (completionHandler)
+            completionHandler(objects, error);
          
      }];
 }
