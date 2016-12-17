@@ -101,6 +101,10 @@
     self.moviesTableView.rowHeight = UITableViewAutomaticDimension;
 
 
+    [self setupInfiniteScrollView];
+    [self addSearchBar];
+    [self hideErrorView:self.errorView];
+
     
     [self setConstraints];
     [self fetchMovies];
@@ -119,11 +123,7 @@
          {
              [self showErrorView:self.errorView];
          }
-         else
-         {
-             [self hideErrorView:self.errorView];
-
-         }
+  
          [self.movies addObjectsFromArray:objects];
          self.displayedItems = self.movies;
 
@@ -133,18 +133,11 @@
              
              
              if ([[NSThread currentThread] isMainThread]){
-                 NSLog(@"In main thread--completion handler");
-                 
-                 CGFloat oldOffset = self.moviesTableView.contentSize.height;
-                 [self.moviesTableView reloadData];
-                 CGPoint new = CGPointMake(0, oldOffset);
-
-//                 [self.moviesTableView setContentOffset:new];
                  
                  [self.refreshControl endRefreshing];
                  [self.loadingMoreView stopAnimating];
                  [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+                 [self.moviesTableView reloadData];
 
              }
              else{
@@ -248,7 +241,7 @@
         if(scrollView.contentOffset.y > scrollOffsetThreshold && self.moviesTableView.dragging) {
             self.isMoreDataLoading = true;
             
-            CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height - self.tabBarController.tabBar.frame.size.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
+            CGRect frame = CGRectMake(0, self.moviesTableView.contentSize.height, self.moviesTableView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
             self.loadingMoreView.frame = frame;
             [self.loadingMoreView startAnimating];
             
@@ -284,7 +277,7 @@
     [self.moviesTableView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
     [self.moviesTableView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
     [self.moviesTableView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
-    [self.moviesTableView.bottomAnchor constraintEqualToAnchor:view.bottomAnchor].active = YES;
+    [self.moviesTableView.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor].active = YES;
     
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
@@ -323,7 +316,6 @@
     self.loadingMoreView = [[FLInfiniteScrollActivityView alloc]initWithFrame:frame];
     self.loadingMoreView.hidden = true;
     [self.moviesTableView addSubview:self.loadingMoreView];
-    self.loadingMoreView.backgroundColor = [UIColor yellowColor];
     
     
 }
@@ -366,7 +358,7 @@
 {
     [super viewDidLayoutSubviews];
     
-    [self setupInfiniteScrollView];
+//    [self setupInfiniteScrollView];
 //    [self addSearchBar];
     
 }
