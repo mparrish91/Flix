@@ -9,13 +9,14 @@
 #import "FLMoviesTableViewController.h"
 #import "FLMovieDetailViewController.h"
 #import "FLMovieTableViewCell.h"
+#import "FLMovieCollectionViewCell.h"
 #import "FLMovie.h"
 #import "UIImageView+AFNetworking.h"
 #import "FLNetworkingHelper.h"
 #import "FLInfiniteScrollActivityView.h"
 #import "MBProgressHUD.h"
 #import "FLErrorView.h"
-
+#import "UIImageView+AFNetworkingFadeInAdditions.h"
 
 
 @interface FLMoviesTableViewController ()
@@ -25,6 +26,8 @@
 
 
 @property(nonatomic,strong) UITableView *moviesTableView;
+@property(nonatomic,strong) UICollectionView *moviesCollectionView;
+
 @property(nonatomic,strong) UIRefreshControl *refreshControl;
 @property(nonatomic,strong) FLErrorView *errorView;
 @property(nonatomic,strong) FLNetworkingHelper *networkingHelper;
@@ -47,6 +50,7 @@
 - (instancetype)init
 {
     self.moviesTableView = [[UITableView alloc]init];
+    self.moviesCollectionView = [[UICollectionView alloc]init];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 
     self.errorView = [[FLErrorView alloc]init];
@@ -90,6 +94,13 @@
     self.moviesTableView.dataSource = self;
     self.refreshControl = [[UIRefreshControl alloc]init];
     [self.moviesTableView addSubview:self.refreshControl];
+    
+    [self.moviesCollectionView registerClass:[FLMovieCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+    self.moviesCollectionView.delegate = self;
+    self.moviesCollectionView.dataSource = self;
+    [self.moviesCollectionView addSubview:self.refreshControl];
+
+    
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     UIEdgeInsets insets = self.moviesTableView.contentInset;
@@ -99,6 +110,9 @@
     //autoresizing rows
     self.moviesTableView.estimatedRowHeight = 100;
     self.moviesTableView.rowHeight = UITableViewAutomaticDimension;
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Toggle" style:UIBarButtonItemStylePlain target:self action:@selector(toggleView)];
+    
 
 
     [self setupInfiniteScrollView];
@@ -247,7 +261,9 @@
     NSString *photoImageURL = [movie posterPath];
     
     
-    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
+//    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
+    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
+
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [UIView commitAnimations];
@@ -441,7 +457,33 @@
     [self.moviesTableView reloadData];
 }
 
+- (void)toggleView
+{
+    
+}
 
+
+//collectionview
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    FLMovieCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
+    
+    return cell;
+
+}
+
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.movies.count;
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
 
 
 @end

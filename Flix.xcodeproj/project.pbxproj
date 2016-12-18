@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4214EDAF1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4214EDAE1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m */; };
+		4230D5E81E06890C000E6216 /* FLMovieCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230D5E71E06890C000E6216 /* FLMovieCollectionViewCell.m */; };
+		4230D5EB1E068FCC000E6216 /* UIImageView+AFNetworkingFadeInAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4230D5EA1E068FCC000E6216 /* UIImageView+AFNetworkingFadeInAdditions.m */; };
 		42407FF01DAB5BEF00C6FB82 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42407FEF1DAB5BEF00C6FB82 /* main.m */; };
 		42407FF31DAB5BEF00C6FB82 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42407FF21DAB5BEF00C6FB82 /* AppDelegate.m */; };
 		42407FFB1DAB5BEF00C6FB82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42407FFA1DAB5BEF00C6FB82 /* Assets.xcassets */; };
@@ -30,6 +32,10 @@
 		3C9EDE36672DB8258C73B462 /* Pods-Flix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flix.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flix/Pods-Flix.release.xcconfig"; sourceTree = "<group>"; };
 		4214EDAD1DAEBA4E006DE7D8 /* FLMovieTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMovieTableViewCell.h; sourceTree = "<group>"; };
 		4214EDAE1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMovieTableViewCell.m; sourceTree = "<group>"; };
+		4230D5E61E06890C000E6216 /* FLMovieCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLMovieCollectionViewCell.h; sourceTree = "<group>"; };
+		4230D5E71E06890C000E6216 /* FLMovieCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLMovieCollectionViewCell.m; sourceTree = "<group>"; };
+		4230D5E91E068FCC000E6216 /* UIImageView+AFNetworkingFadeInAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworkingFadeInAdditions.h"; sourceTree = "<group>"; };
+		4230D5EA1E068FCC000E6216 /* UIImageView+AFNetworkingFadeInAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworkingFadeInAdditions.m"; sourceTree = "<group>"; };
 		42407FEB1DAB5BEF00C6FB82 /* Flix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42407FEF1DAB5BEF00C6FB82 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		42407FF11DAB5BEF00C6FB82 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -114,6 +120,8 @@
 		42407FEE1DAB5BEF00C6FB82 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4230D5E91E068FCC000E6216 /* UIImageView+AFNetworkingFadeInAdditions.h */,
+				4230D5EA1E068FCC000E6216 /* UIImageView+AFNetworkingFadeInAdditions.m */,
 				42407FEF1DAB5BEF00C6FB82 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -164,6 +172,8 @@
 				424080161DAB5EEB00C6FB82 /* FLErrorView.m */,
 				4214EDAD1DAEBA4E006DE7D8 /* FLMovieTableViewCell.h */,
 				4214EDAE1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m */,
+				4230D5E61E06890C000E6216 /* FLMovieCollectionViewCell.h */,
+				4230D5E71E06890C000E6216 /* FLMovieCollectionViewCell.m */,
 				427BCCD51DB4059C00F070C4 /* FLMovieDetailView.h */,
 				427BCCD61DB4059C00F070C4 /* FLMovieDetailView.m */,
 				427BCCD81DB405C000F070C4 /* FLInfiniteScrollActivityView.h */,
@@ -311,12 +321,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4230D5EB1E068FCC000E6216 /* UIImageView+AFNetworkingFadeInAdditions.m in Sources */,
 				42407FF31DAB5BEF00C6FB82 /* AppDelegate.m in Sources */,
 				424080101DAB5D8B00C6FB82 /* FLMovieDetailViewController.m in Sources */,
 				4214EDAF1DAEBA4E006DE7D8 /* FLMovieTableViewCell.m in Sources */,
 				427BCCD71DB4059C00F070C4 /* FLMovieDetailView.m in Sources */,
 				427BCCDA1DB405C000F070C4 /* FLInfiniteScrollActivityView.m in Sources */,
 				42407FF01DAB5BEF00C6FB82 /* main.m in Sources */,
+				4230D5E81E06890C000E6216 /* FLMovieCollectionViewCell.m in Sources */,
 				424FE0281DAD523900CFE4F0 /* FLMoviesTableViewController.m in Sources */,
 				424FE02B1DAD525600CFE4F0 /* FLTopRatedTableViewController.m in Sources */,
 				424FE02F1DAD5EBD00CFE4F0 /* FLBase.m in Sources */,
