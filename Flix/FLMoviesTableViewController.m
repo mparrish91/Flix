@@ -36,6 +36,7 @@
 @property (nonatomic, strong) NSMutableArray * filteredMovies;
 @property (nonatomic, weak) NSArray * displayedItems;
 
+@property (nonatomic,assign) BOOL toggle;
 
 
 @property(nonatomic,strong) FLInfiniteScrollActivityView *loadingMoreView;
@@ -50,7 +51,8 @@
 - (instancetype)init
 {
     self.moviesTableView = [[UITableView alloc]init];
-    self.moviesCollectionView = [[UICollectionView alloc]init];
+    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+    self.moviesCollectionView=[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 
     self.errorView = [[FLErrorView alloc]init];
@@ -113,11 +115,13 @@
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Toggle" style:UIBarButtonItemStylePlain target:self action:@selector(toggleView)];
     
-
+    self.toggle = YES;
 
     [self setupInfiniteScrollView];
     [self addSearchBar];
     [self hideErrorView:self.errorView];
+    
+    self.moviesCollectionView.hidden = YES;
 
     
     [self setConstraints];
@@ -231,42 +235,19 @@
     {
         cell = [[FLMovieTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-//    FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
-//    cell.titleLabel.text = [movie title];
-////    cell.overviewLabel.text = [self convertDateToString:movie.releaseDate];
-//    cell.overviewLabel.text = [movie overview];
-//    NSString *photoImageURL = [movie posterPath];
-//
-//
-//    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
-//    
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    
-    return cell;
-}
-
-//This function is where all the magic happens
--(void) tableView:(UITableView *) tableView willDisplayCell:(FLMovieTableViewCell *) cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    [UIView beginAnimations:@"fade" context:nil];
-    [UIView setAnimationDuration:20.0];
-    [UIView setAnimationRepeatAutoreverses:YES];
-    [UIView setAnimationRepeatCount: 0.5];
     FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
     cell.titleLabel.text = [movie title];
-    //    cell.overviewLabel.text = [self convertDateToString:movie.releaseDate];
     cell.overviewLabel.text = [movie overview];
     NSString *photoImageURL = [movie posterPath];
     
     
-//    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
+    //    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
     [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [UIView commitAnimations];
+    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -319,6 +300,7 @@
     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = view;
     [view addSubview:self.moviesTableView];
+    [view addSubview:self.moviesCollectionView];
     [view addSubview:self.errorView];
     
 }
@@ -336,6 +318,14 @@
     [self.moviesTableView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
     [self.moviesTableView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
     [self.moviesTableView.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor].active = YES;
+    
+    
+    self.moviesCollectionView.translatesAutoresizingMaskIntoConstraints = false;
+    [self.moviesCollectionView.leadingAnchor constraintEqualToAnchor:view.leadingAnchor].active = YES;
+    [self.moviesCollectionView.trailingAnchor constraintEqualToAnchor:view.trailingAnchor].active = YES;
+    [self.moviesCollectionView.topAnchor constraintEqualToAnchor:view.topAnchor].active = YES;
+    [self.moviesCollectionView.bottomAnchor constraintEqualToAnchor:margins.bottomAnchor].active = YES;
+    
     
     [self setEdgesForExtendedLayout:UIRectEdgeNone];
     
@@ -457,9 +447,23 @@
     [self.moviesTableView reloadData];
 }
 
+
 - (void)toggleView
 {
+    if (self.toggle)
+    {
+        self.moviesTableView.hidden = YES;
+        self.moviesCollectionView.hidden = NO;
+
+    }
+    else
+    {
+        self.moviesTableView.hidden = NO;
+        self.moviesCollectionView.hidden = YES;
+
+    }
     
+
 }
 
 
@@ -469,6 +473,11 @@
 {
     FLMovieCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
+    FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
+    NSString *photoImageURL = [movie posterPath];
+
+    [cell.photoImageView setImageWithURL:[NSURL URLWithString:photoImageURL] placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
+
     
     return cell;
 

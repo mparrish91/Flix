@@ -10,4 +10,7 @@
 
 @interface FLMovieCollectionViewCell : UICollectionViewCell
 
+@property(strong,readwrite,nonatomic) UIImageView *photoImageView;
+
+
 @end
