@@ -114,40 +114,82 @@
 
 - (void)fetchMovies
 {
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-
-    [self.networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
-     {
-
-         if (error)
+    
+    if (self.isTopRated) {
+        [self.networkingHelper fetchTopRatedWithCompletionHandler:^(NSArray *objects, NSError *error)
          {
-             [self showErrorView:self.errorView];
-         }
-  
-         [self.movies addObjectsFromArray:objects];
-         self.displayedItems = self.movies;
-
-
-         dispatch_async(dispatch_get_main_queue(), ^{
-             self.isMoreDataLoading = false;
+             
+             if (error)
+             {
+                 [self showErrorView:self.errorView];
+             }
+             
+             [self.movies addObjectsFromArray:objects];
+             self.displayedItems = self.movies;
              
              
-             if ([[NSThread currentThread] isMainThread]){
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.isMoreDataLoading = false;
                  
-                 [self.refreshControl endRefreshing];
-                 [self.loadingMoreView stopAnimating];
-                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-                 [self.moviesTableView reloadData];
-
-             }
-             else{
-                 NSLog(@"Not in main thread--completion handler");
-             }
-
+                 
+                 if ([[NSThread currentThread] isMainThread]){
+                     
+                     [self.refreshControl endRefreshing];
+                     [self.loadingMoreView stopAnimating];
+                     [MBProgressHUD hideHUDForView:self.view animated:YES];
+                     [self.moviesTableView reloadData];
+                     
+                 }
+                 else{
+                     NSLog(@"Not in main thread--completion handler");
+                 }
+                 
              });
-     }
-     
-     ];
+         }
+         
+         ];
+
+        
+    }
+    else
+    {
+        
+        
+        [self.networkingHelper fetchNowPlayingWithCompletionHandler:^(NSArray *objects, NSError *error)
+         {
+             
+             if (error)
+             {
+                 [self showErrorView:self.errorView];
+             }
+             
+             [self.movies addObjectsFromArray:objects];
+             self.displayedItems = self.movies;
+             
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 self.isMoreDataLoading = false;
+                 
+                 
+                 if ([[NSThread currentThread] isMainThread]){
+                     
+                     [self.refreshControl endRefreshing];
+                     [self.loadingMoreView stopAnimating];
+                     [MBProgressHUD hideHUDForView:self.view animated:YES];
+                     [self.moviesTableView reloadData];
+                     
+                 }
+                 else{
+                     NSLog(@"Not in main thread--completion handler");
+                 }
+                 
+             });
+         }
+         
+         ];
+    }
 }
 
 
@@ -323,7 +365,6 @@
 -(void)addSearchBar {
 
     self.searchController.searchResultsUpdater = self;
-//    self.navigationItem.titleView = self.searchController.searchBar;
     self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.delegate = self;
 
@@ -358,8 +399,6 @@
 {
     [super viewDidLayoutSubviews];
     
-//    [self setupInfiniteScrollView];
-//    [self addSearchBar];
     
 }
 
@@ -391,7 +430,6 @@
         [self.filteredMovies removeAllObjects];
         for (FLMovie *movie in self.movies) {
             if ([searchString isEqualToString:@""] || [movie.title localizedCaseInsensitiveContainsString:searchString] == YES) {
-                NSLog(@"str=%@", movie.title);
                 [self.filteredMovies addObject:movie];
             }
         }
@@ -400,7 +438,7 @@
     else {
         self.displayedItems = self.movies;
     }
-//    [self.moviesTableView reloadData];
+    [self.moviesTableView reloadData];
 }
 
 

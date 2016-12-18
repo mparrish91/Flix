@@ -47,8 +47,9 @@ FLTabBarController *tabBarController;
     
 
     //Create second vc embedded in nav
-    FLTopRatedTableViewController *topRatedVC =[[FLTopRatedTableViewController alloc]init];
+    FLMoviesTableViewController *topRatedVC =[[FLMoviesTableViewController alloc]init];
     UINavigationController *nav2 = [[UINavigationController alloc]initWithRootViewController:topRatedVC];
+    topRatedVC.isTopRated = YES;
     topRatedVC.tabBarItem.title = @"Top Rated";
     topRatedVC.tabBarItem.image = [UIImage imageNamed:@"star"];
 

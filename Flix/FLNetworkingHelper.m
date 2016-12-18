@@ -39,7 +39,7 @@
 
 - (void)fetchTopRatedWithCompletionHandler:(void (^)(NSArray *objects, NSError *error))completionHandler
 {
-    NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/top_rated?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.themoviedb.org/3/movie/top_rated?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed&page=%d", self.offset]];
     FLHTTPClient *httpClient = [[FLHTTPClient alloc]initWithURL:url];
     
     NSHTTPURLResponse *response=nil;
