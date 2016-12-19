@@ -50,20 +50,23 @@
 
 - (instancetype)init
 {
-    self.moviesTableView = [[UITableView alloc]init];
-    UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
-    self.moviesCollectionView=[[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-
-    self.errorView = [[FLErrorView alloc]init];
-    self.movies = [[NSMutableArray alloc] init];
-    self.filteredMovies = [[NSMutableArray alloc] init];
-
-    self.networkingHelper = [[FLNetworkingHelper alloc]init];
-
-    
     self = [super init];
     if(self) {
+        
+        self.moviesTableView = [[UITableView alloc]init];
+        UICollectionViewFlowLayout *layout=[[UICollectionViewFlowLayout alloc] init];
+        self.moviesCollectionView = [[UICollectionView alloc] initWithFrame:[UIScreen mainScreen].bounds collectionViewLayout:layout];
+        
+        self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+
+        self.searchController.dimsBackgroundDuringPresentation = NO;
+        
+        self.errorView = [[FLErrorView alloc]init];
+        self.movies = [[NSMutableArray alloc] init];
+        self.filteredMovies = [[NSMutableArray alloc] init];
+        
+        self.networkingHelper = [[FLNetworkingHelper alloc]init];
+        
     }
     return self;
 }
@@ -81,6 +84,15 @@
 
 #pragma mark - UIViewController
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    self.searchController.searchBar.hidden = NO;
+
+    
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,16 +103,17 @@
     
     //tableview
     NSString *cellIdentifier = @"cell";
+    NSString *cellIdentifier2 = @"cell2";
     [self.moviesTableView registerClass:[FLMovieTableViewCell class] forCellReuseIdentifier:cellIdentifier];
     self.moviesTableView.delegate = self;
     self.moviesTableView.dataSource = self;
     self.refreshControl = [[UIRefreshControl alloc]init];
     [self.moviesTableView addSubview:self.refreshControl];
     
-    [self.moviesCollectionView registerClass:[FLMovieCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+    [self.moviesCollectionView registerClass:[FLMovieCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier2];
     self.moviesCollectionView.delegate = self;
     self.moviesCollectionView.dataSource = self;
-    [self.moviesCollectionView addSubview:self.refreshControl];
+//    [self.moviesCollectionView addSubview:self.refreshControl];
 
     
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
@@ -253,10 +266,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
+    NSLog(@"%@", indexPath);
     
-    FLMovie *movie = [self.movies objectAtIndex:indexPath.row];
+    FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
     FLMovieDetailViewController *detailVC = [[FLMovieDetailViewController alloc]initWithMovie:movie];
 //    FLMovieDetailViewController *detailVC = [[FLMovieDetailViewController alloc]initWithURL:[movie posterPath]];
+    self.searchController.searchBar.hidden = YES;
     [self.navigationController pushViewController:detailVC animated:true];
 }
 
@@ -299,8 +314,8 @@
     
     UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = view;
-    [view addSubview:self.moviesTableView];
     [view addSubview:self.moviesCollectionView];
+    [view addSubview:self.moviesTableView];
     [view addSubview:self.errorView];
     
 }
@@ -371,33 +386,16 @@
 -(void)addSearchBar {
 
     self.searchController.searchResultsUpdater = self;
-    self.searchController.searchResultsUpdater = self;
     self.searchController.searchBar.delegate = self;
-
     [self.searchController.searchBar sizeToFit];
 
     self.searchController.hidesNavigationBarDuringPresentation = NO;
     self.definesPresentationContext = NO;
     
-//    self.definesPresentationContext = YES;
 
      self.moviesTableView.tableHeaderView = self.searchController.searchBar;
-    // Hides search bar initially.  When the user pulls down on the list, the search bar is revealed.
-//   [self.moviesTableView setContentOffset:CGPointMake(0, self.searchController.searchBar.frame.size.height)];
 
 }
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    return self.searchController.searchBar;
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return self.searchController.searchBar.frame.size.height;
-//
-//    
-//}
 
 
 
@@ -450,19 +448,21 @@
 
 - (void)toggleView
 {
+    
     if (self.toggle)
     {
+        
         self.moviesTableView.hidden = YES;
         self.moviesCollectionView.hidden = NO;
-
+        self.toggle = NO;
     }
     else
     {
         self.moviesTableView.hidden = NO;
         self.moviesCollectionView.hidden = YES;
+        self.toggle = YES;
 
     }
-    
 
 }
 
@@ -471,7 +471,7 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    FLMovieCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    FLMovieCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell2" forIndexPath:indexPath];
     
     FLMovie *movie = [self.displayedItems objectAtIndex:indexPath.row];
     NSString *photoImageURL = [movie posterPath];

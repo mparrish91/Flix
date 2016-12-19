@@ -102,8 +102,8 @@
          
          self.offset++;
 
-             if (completionHandler)
-                 completionHandler(objects, error);
+         if (completionHandler)
+             completionHandler(objects, error);
          
      }];
     
