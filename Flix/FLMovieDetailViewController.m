@@ -73,22 +73,28 @@
     
     [self setConstraints];
     
-    [self.posterImageView setImageWithURL:[NSURL URLWithString:[self.movie posterPath]]  placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
+//    [self.posterImageView setImageWithURL:[NSURL URLWithString:[self.movie posterPath]]  placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
 
 
-    //load one image after the other. just have to request low res from server
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self.movie posterPath]]];
-//    [request setHTTPShouldHandleCookies:NO];
-//    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-//    
-//    [self.posterImageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder-background"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-//        [UIView transitionWithView:weakSelf duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-//            //[weakSelf setImage:image];
-//        } completion:
-//nil
-//         
-//         ];
-//    } failure:nil];
+//    load one image after the other. just have to request low res from server
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self.movie posterPath]]];
+    [request setHTTPShouldHandleCookies:NO];
+    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+    
+    __weak typeof (UIImageView) *weakSelf = self.posterImageView;
+    __weak typeof (self) weakSel = self;
+
+    [self.posterImageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder-background"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [UIView transitionWithView:weakSelf duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            [weakSelf setImage:image];
+            
+                [weakSelf setImageWithURL:[NSURL URLWithString:[weakSel.movie posterPath]]  placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
+
+        } completion:
+                nil
+         
+         ];
+    } failure:nil];
 
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
