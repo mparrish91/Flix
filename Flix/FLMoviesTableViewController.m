@@ -113,7 +113,9 @@
     [self.moviesCollectionView registerClass:[FLMovieCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier2];
     self.moviesCollectionView.delegate = self;
     self.moviesCollectionView.dataSource = self;
-//    [self.moviesCollectionView addSubview:self.refreshControl];
+    self.moviesCollectionView.backgroundColor = [UIColor whiteColor];
+
+    [self.moviesCollectionView addSubview:self.refreshControl];
 
     
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
@@ -302,6 +304,22 @@
             [self fetchMovies];
             
         }
+        
+        scrollViewContentHeight = self.moviesCollectionView.contentSize.height;
+        scrollOffsetThreshold = scrollViewContentHeight - self.moviesCollectionView.bounds.size.height;
+        
+        //collectionview
+        if(scrollView.contentOffset.y > scrollOffsetThreshold && self.moviesCollectionView.dragging) {
+            self.isMoreDataLoading = true;
+            
+            CGRect frame = CGRectMake(0, self.moviesCollectionView.contentSize.height, self.moviesCollectionView.bounds.size.width, FLInfiniteScrollActivityView.defaultHeight);
+            self.loadingMoreView.frame = frame;
+            [self.loadingMoreView startAnimating];
+            
+            [self fetchMovies];
+            [self.moviesCollectionView reloadData];
+            
+        }
     }
     
 }
@@ -379,7 +397,8 @@
     self.loadingMoreView = [[FLInfiniteScrollActivityView alloc]initWithFrame:frame];
     self.loadingMoreView.hidden = true;
     [self.moviesTableView addSubview:self.loadingMoreView];
-    
+    [self.moviesCollectionView addSubview:self.loadingMoreView];
+
     
 }
 
@@ -491,7 +510,15 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    FLMovie *movie = [self.movies objectAtIndex:indexPath.row];
+    FLMovieDetailViewController *detailVC = [[FLMovieDetailViewController alloc]initWithMovie:movie];
+    [self.navigationController pushViewController:detailVC animated:true];
+
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    CGRect frame = [UIScreen mainScreen].bounds;
+    return CGSizeMake(frame.size.width / 3.5, frame.size.height / 4);
 }
 
 

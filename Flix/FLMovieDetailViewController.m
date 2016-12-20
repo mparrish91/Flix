@@ -10,6 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "FLMovieDetailView.h"
 #import "FLMovie.h"
+#import "UIImageView+AFNetworkingFadeInAdditions.h"
 
 
 @interface FLMovieDetailViewController ()
@@ -71,7 +72,24 @@
     [super viewDidLoad];
     
     [self setConstraints];
-    [self.posterImageView setImageWithURL:[NSURL URLWithString:[self.movie posterPath]] placeholderImage:[UIImage imageNamed:@"placeholder-background"]];
+    
+    [self.posterImageView setImageWithURL:[NSURL URLWithString:[self.movie posterPath]]  placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
+
+
+    //load one image after the other. just have to request low res from server
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self.movie posterPath]]];
+//    [request setHTTPShouldHandleCookies:NO];
+//    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+//    
+//    [self.posterImageView setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"placeholder-background"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+//        [UIView transitionWithView:weakSelf duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+//            //[weakSelf setImage:image];
+//        } completion:
+//nil
+//         
+//         ];
+//    } failure:nil];
+
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
     [self.view addGestureRecognizer:tapGesture];
@@ -180,6 +198,8 @@
     self.detailView.contentMode = UIViewContentModeScaleAspectFit;
     
 }
+
+
 
 
 @end
