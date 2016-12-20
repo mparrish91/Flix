@@ -14,6 +14,7 @@
 
 @property(strong,readonly,nonatomic) NSString *title;
 @property(strong,readonly,nonatomic) NSString *posterPath;
+@property(strong,readonly,nonatomic) NSString *backdropPath;
 @property(strong,readonly,nonatomic) NSString *overview;
 @property(strong,readonly,nonatomic) NSDate *releaseDate;
 @property(readonly,nonatomic) NSInteger runtime;

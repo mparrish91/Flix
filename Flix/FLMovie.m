@@ -22,6 +22,10 @@
     if ((value = dict[@"poster_path"]) && [value isKindOfClass:[NSString class]])
         valuesForKeys[@"posterPath"] = FLMovieImageURLFromString(value);
     
+    if ((value = dict[@"backdrop_path"]) && [value isKindOfClass:[NSString class]])
+        valuesForKeys[@"backdropPath"] = FLMovieImageURLFromString(value);
+
+    
     if ((value = dict[@"overview"]) && [value isKindOfClass:[NSString class]])
         valuesForKeys[@"overview"] = value;
     
@@ -34,18 +38,8 @@
     if ((value = dict[@"popularity"]) && [value respondsToSelector:@selector(doubleValue)])
         valuesForKeys[@"rating"] = value;
     
-    
-//    FLPerformSyncOnMainThread(^{
-//        [self setValuesForKeysWithDictionary:valuesForKeys];
-//    });
-    
-    [self setValuesForKeysWithDictionary:valuesForKeys];
 
-    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self setValuesForKeysWithDictionary:valuesForKeys];
-//    });
-    
+    [self setValuesForKeysWithDictionary:valuesForKeys];
 
     return self;
 }

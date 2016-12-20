@@ -76,8 +76,8 @@
 //    [self.posterImageView setImageWithURL:[NSURL URLWithString:[self.movie posterPath]]  placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
 
 
-//    load one image after the other. just have to request low res from server
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self.movie posterPath]]];
+//    load low res backdrop image first. then high res
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[self.movie backdropPath]]];
     [request setHTTPShouldHandleCookies:NO];
     [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
     
@@ -88,7 +88,7 @@
         [UIView transitionWithView:weakSelf duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
             [weakSelf setImage:image];
             
-                [weakSelf setImageWithURL:[NSURL URLWithString:[weakSel.movie posterPath]]  placeholderImage:[UIImage imageNamed:@"placeholder-background"] fadeInWithDuration:0.2f];
+                [weakSelf setImageWithURL:[NSURL URLWithString:[weakSel.movie posterPath]]  placeholderImage:image fadeInWithDuration:0.2f];
 
         } completion:
                 nil
@@ -189,7 +189,7 @@
     [self.posterImageView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor].active = YES;
     [self.posterImageView.topAnchor constraintEqualToAnchor:self.view.topAnchor].active = YES;
     [self.posterImageView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:15].active = YES;
-    self.posterImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.posterImageView.contentMode = UIViewContentModeScaleToFill;
     
     self.detailView.translatesAutoresizingMaskIntoConstraints = false;
     [self.detailView.leadingAnchor constraintEqualToAnchor:margins.leadingAnchor].active = YES;
