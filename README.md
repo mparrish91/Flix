@@ -38,8 +38,7 @@ If time allows I plan to add a search bar and the top rated section.
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/QpI4DDU.gif' title='Flix Video Walkthrough' width='' alt='Video Walkthrough' />
-<img src='http://i.imgur.com/YgKpf4W.gif' title='Flix Networking Error' width='' alt='Networking Error' />
+<img src='http://i.imgur.com/MT5vqPQ.gif' title='Flix Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
